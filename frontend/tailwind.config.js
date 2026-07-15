@@ -12,7 +12,15 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       },
+      fontFamily: {
+        display: ['Oswald', 'sans-serif'],
+        sans: ['Manrope', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'monospace'],
+      },
       colors: {
+        'prochem-red': '#E60000',
+        'tapasya-blue': '#0044CC',
+        'ink': '#0A0A0A',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
