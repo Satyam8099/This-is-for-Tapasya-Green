@@ -52,6 +52,7 @@ export default function Hero() {
 
         <motion.h1
           style={{ y: yText }}
+          aria-label="Integrated Process Solutions"
           variants={lineWrap}
           initial="hidden"
           animate="show"
