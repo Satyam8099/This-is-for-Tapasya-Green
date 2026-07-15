@@ -1,0 +1,137 @@
+{
+  "project_name": "Prochem Tapasya - Marketing Homepage",
+  "app_type": "marketing_site",
+  "theme": "light",
+  "design_archetype": "ARCHETYPE 4: SWISS & HIGH-CONTRAST (Authority, Clarity, Truth) - Adapted for Industrial Premium",
+  "typography": {
+    "headings": {
+      "font_family": "Oswald, sans-serif",
+      "style": "uppercase, tracking-tighter, leading-none, font-bold to font-black",
+      "description": "Industrial, towering, authoritative. Used for massive kinetic text and manifesto numbers."
+    },
+    "body": {
+      "font_family": "Manrope, sans-serif",
+      "style": "font-medium, leading-relaxed, tracking-normal",
+      "description": "Clean, highly legible, geometric sans for technical precision in body copy."
+    },
+    "accents": {
+      "font_family": "IBM Plex Mono, monospace",
+      "style": "uppercase, tracking-[0.2em], text-xs to text-sm",
+      "description": "Used for overlines, coordinates, specs, and chapter labels."
+    }
+  },
+  "colors": {
+    "primary": "#E60000",
+    "primary_description": "Prochem Red - used for 'PROCHEM', high-impact highlights, and kinetic hover states.",
+    "secondary": "#0044CC",
+    "secondary_description": "Tapasya Blue - used for 'TAPASYA', secondary structural elements, and trust markers.",
+    "background_base": "#F8F9FA",
+    "background_alt": "#FFFFFF",
+    "text_main": "#0A0A0A",
+    "text_muted": "#666666",
+    "surface_border": "rgba(10, 10, 10, 0.1)"
+  },
+  "visual_enhancers": {
+    "surfaces": "Crystal Glass for sticky nav (backdrop-blur-xl bg-white/70, 1px border-white/40). Flat solid for product cards with sharp edges.",
+    "borders": "1px solid borders using black/10 for grid structures. Visible grid lines in the capabilities section.",
+    "shadows": "Minimal. Rely on sharp contrast and borders. Use soft drop-shadow only for floating elements like the nav.",
+    "texture": "Subtle SVG noise overlay fixed in the background at 2% opacity to remove digital flatness."
+  },
+  "motion_and_interactions": {
+    "hero_reveal": "Masked line-by-line reveal using Framer Motion (initial Y offset 100%, animate to 0% inside an overflow-hidden wrapper).",
+    "scrolling": "Lenis for smooth momentum scrolling. Mandatory for the premium feel.",
+    "hover_states": "Images inside clipped frames scale up slightly (scale 1.05) on hover. Buttons feature a background color sweep.",
+    "parallax": "Subtle react-spring-parallax or Framer Motion useScroll for floating geometric shapes in the hero and chapter numbers moving at slower rates than content.",
+    "marquee": "react-fast-marquee running slowly across the screen with massive outline text for industries."
+  },
+  "layout_and_grids": {
+    "spacing": "Generous. Use p-12, p-24, py-32 for section padding. Negative space is a core design element.",
+    "products_grid": "MODE A: 'Tetris' Grid. md:grid-cols-12, gap-8. Mix col-span-8 (Hero product), col-span-4 (Supporting). Not all squares filled perfectly.",
+    "capabilities": "List-based accordion or massive hover-reveal table. Left column: numbered list, Right column: changing image based on hover."
+  },
+  "sections_and_components": [
+    {
+      "name": "Sticky Nav",
+      "instructions": "Glassmorphism header (z-50). Logo: PROCHEM in text-primary, TAPASYA in text-secondary. Anchor links on right. Hide links on mobile behind a sleek hamburger."
+    },
+    {
+      "name": "Kinetic Hero",
+      "instructions": "Massive H1 (text-6xl md:text-8xl). 'INTEGRATED PROCESS SOLUTIONS'. Masked reveal. Background features a subtle 3D rotating metallic particle (React Three Fiber) OR abstract floating geometry if 3D isn't viable. Call to action button with arrow icon."
+    },
+    {
+      "name": "Stats Band",
+      "instructions": "Grid-cols-3 layout. Features large numbers (text-5xl): '60+ Years', '50+ Countries', '#1 Market Leader in Saizoner'. Use Mono font for labels."
+    },
+    {
+      "name": "Manifesto / About",
+      "instructions": "Numbered chapters ('01. OUR VISION', '02. OUR VALUES'). Swiss editorial layout. Large numbers positioned absolutely behind the text (text-[10rem] text-black/5)."
+    },
+    {
+      "name": "Process Capabilities",
+      "instructions": "Interactive list. Huge typography. Hovering over a capability (e.g., 'Granulation') reveals a corresponding industrial image in a fixed position or alongside."
+    },
+    {
+      "name": "Products Grid",
+      "instructions": "Showcase 12 machine products using the bento grid. Product photography inside clipped frames (sharp edges). Gray/stainless machinery on stark white or light gray cards. Spotlight effect on hover."
+    },
+    {
+      "name": "Editorial Marquee",
+      "instructions": "Massive text outline marquee (text-8xl text-transparent border-text stroke-black). Words: PHARMACEUTICAL • NUTRACEUTICAL • FOOD • CHEMICAL • COSMETICS."
+    },
+    {
+      "name": "Global Operations",
+      "instructions": "Minimal map or coordinate list. Dark section to contrast with the rest of the page (bg-black text-white), showing global reach."
+    },
+    {
+      "name": "Footer / Contact",
+      "instructions": "Massive CTA ('START A PROJECT'). Strict grid layout for contact details. High contrast."
+    }
+  ],
+  "image_urls": {
+    "machinery_1": "https://images.unsplash.com/photo-1513828583688-c52646db42da?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHw0fHxzdGFpbmxlc3MlMjBzdGVlbCUyMGluZHVzdHJpYWwlMjBtYWNoaW5lcnl8ZW58MHx8fHwxNzg0MTIxMTE3fDA&ixlib=rb-4.1.0&q=85",
+    "machinery_2": "https://images.unsplash.com/photo-1513828646384-e4d8ec30d2bb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwyfHxzdGFpbmxlc3MlMjBzdGVlbCUyMGluZHVzdHJpYWwlMjBtYWNoaW5lcnl8ZW58MHx8fHwxNzg0MTIxMTE3fDA&ixlib=rb-4.1.0&q=85",
+    "machinery_3": "https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxzdGFpbmxlc3MlMjBzdGVlbCUyMGluZHVzdHJpYWwlMjBtYWNoaW5lcnl8ZW58MHx8fHwxNzg0MTIxMTE3fDA&ixlib=rb-4.1.0&q=85",
+    "laboratory_1": "https://images.unsplash.com/photo-1518152006812-edab29b069ac?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwyfHxsYWJvcmF0b3J5JTIwZXF1aXBtZW50JTIwc2NpZW5jZXxlbnwwfHx8fDE3ODQxMjExMTh8MA&ixlib=rb-4.1.0&q=85",
+    "laboratory_2": "https://images.unsplash.com/photo-1614308456595-a59d48697ea8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwzfHxsYWJvcmF0b3J5JTIwZXF1aXBtZW50JTIwc2NpZW5jZXxlbnwwfHx8fDE3ODQxMjExMTh8MA&ixlib=rb-4.1.0&q=85",
+    "plant_1": "https://images.unsplash.com/photo-1778354080876-e3c710e450ce?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTJ8MHwxfHNlYXJjaHwzfHxwaGFybWFjZXV0aWNhbCUyMG1hbnVmYWN0dXJpbmclMjBwbGFudHxlbnwwfHx8fDE3ODQxMjExMTd8MA&ixlib=rb-4.1.0&q=85"
+  },
+  "libraries_and_tools": [
+    "framer-motion",
+    "lucide-react",
+    "lenis",
+    "react-fast-marquee",
+    "@react-three/fiber",
+    "@react-three/drei"
+  ],
+  "accessibility": {
+    "contrast": "Ensure red/blue text against white meets WCAG AA standards.",
+    "motion": "Implement prefers-reduced-motion checks for the Lenis smooth scroll and Framer Motion reveals.",
+    "testing": "All interactive elements (nav links, product cards, CTA) MUST have data-testid attributes (e.g., data-testid='nav-about', data-testid='cta-hero')."
+  },
+  "instructions_to_main_agent": [
+    "Install `framer-motion`, `lenis`, `react-fast-marquee`, `lucide-react`, `clsx`, `tailwind-merge`.",
+    "Install Google Fonts in index.html or import in CSS: Oswald (weights 400,600,700), Manrope (weights 400,500,600), IBM Plex Mono (weights 400,500).",
+    "Build this entirely in Javascript (.jsx/.js files, NO TypeScript).",
+    "This is a single-page scrolling site. Implement sticky navbar with IDs for smooth scrolling.",
+    "Design with severe, sharp industrial aesthetics. Use padding aggressively (p-12 to p-32).",
+    "The Hero text MUST use a masked line-by-line reveal animation via Framer Motion.",
+    "Product images must have a spotlight hover effect or simple scale-up within an overflow-hidden frame.",
+    "Avoid generic centered layouts. Use grid lines and asymmetrical bento grids.",
+    "Do NOT add a generic transition: all to everything. Only target specific properties."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur)",
+    "You MUST NOT apply universal transition. Eg: transition: all. Always add transitions for specific interactive elements like button, input excluding transforms.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN"
+  ]
+}
