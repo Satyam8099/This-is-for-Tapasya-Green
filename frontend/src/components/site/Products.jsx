@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { PRODUCTS, IMAGES } from "@/lib/site-data";
 
 export default function Products() {
+  const navigate = useNavigate();
   return (
     <section id="products" data-testid="products-section" className="bg-background">
       <div className="mx-auto max-w-[1600px] px-6 md:px-12 py-28 md:py-40">
@@ -30,7 +32,8 @@ export default function Products() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className={`group relative ${p.span} bg-white border border-black/10 overflow-hidden`}
+              onClick={p.to ? () => navigate(p.to) : undefined}
+              className={`group relative ${p.span} bg-white border border-black/10 overflow-hidden ${p.to ? "cursor-pointer" : ""}`}
             >
               <div className={`clip-frame ${p.feature ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
                 <img
@@ -59,10 +62,17 @@ export default function Products() {
                     {p.name}
                   </h3>
                 </div>
-                <span className="shrink-0 grid place-items-center h-10 w-10 bg-prochem-red text-white translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                <span className={`shrink-0 grid place-items-center h-10 w-10 bg-prochem-red text-white transition-all duration-300 ${p.to ? "opacity-100 translate-y-0" : "translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100"}`}>
                   <ArrowUpRight size={18} />
                 </span>
               </div>
+              {p.to && (
+                <div className="absolute top-4 right-4">
+                  <span data-testid="product-view-details" className="font-mono uppercase text-[0.65rem] tracking-[0.2em] bg-prochem-red text-white px-2.5 py-1">
+                    View Details
+                  </span>
+                </div>
+              )}
             </motion.article>
           ))}
         </div>

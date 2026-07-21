@@ -38,7 +38,7 @@ export const CAPABILITIES = [
 ];
 
 export const PRODUCTS = [
-  { name: "High Shear Mixer Granulator", tag: "Saizoner Series", img: "machinery_1", span: "md:col-span-8", feature: true },
+  { name: "High Shear Mixer Granulator", tag: "Saizoner Series", img: "machinery_1", span: "md:col-span-8", feature: true, to: "/product/saizoner" },
   { name: "Fluid Bed Dryer", tag: "Drying", img: "plant_1", span: "md:col-span-4" },
   { name: "Rapid Granulator", tag: "Granulation", img: "laboratory_1", span: "md:col-span-4" },
   { name: "Ribbon Blender", tag: "Blending", img: "machinery_2", span: "md:col-span-4" },
@@ -77,3 +77,29 @@ export const CONTACT = {
   phone: "+91 22 6666 0000",
   address: "Prochem Tapasya, Industrial Estate, Mumbai, Maharashtra, India",
 };
+
+export const PRODUCT_DETAIL = {
+  slug: "saizoner",
+  name: "High Shear Mixer Granulator",
+  series: "Saizoner Series",
+  hero: "machinery_1",
+  gallery: ["machinery_2", "plant_1", "laboratory_1"],
+  intro:
+    "The Saizoner is Prochem Tapasya's flagship high shear mixer granulator — the system that made us the market leader across India's leading pharmaceutical companies. Engineered for rapid, reproducible wet granulation from lab batches to full commercial output.",
+  highlights: [
+    "Market-leading Saizoner mixing geometry for uniform granule growth",
+    "Independent impeller and chopper drives for precise end-point control",
+    "cGMP construction with SS 316 / 316L product-contact surfaces",
+    "Scalable from R&D trials to multi-tonne commercial production",
+  ],
+  specs: [
+    { k: "Bowl Capacity", v: "10 L – 1200 L" },
+    { k: "Construction", v: "SS 316 / 316L contact parts" },
+    { k: "Impeller Drive", v: "Dual speed / VFD controlled" },
+    { k: "Chopper", v: "Independent motor drive" },
+    { k: "Discharge", v: "Pneumatic side / bottom port" },
+    { k: "Compliance", v: "cGMP · 21 CFR Part 11 ready" },
+  ],
+  applications: ["Pharmaceutical", "Nutraceutical", "Food", "Fine Chemicals"],
+};
+
