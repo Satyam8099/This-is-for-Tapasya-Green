@@ -62,11 +62,11 @@ export default function Products() {
                     {p.name}
                   </h3>
                 </div>
-                <span className={`shrink-0 grid place-items-center h-10 w-10 bg-prochem-red text-white transition-all duration-300 ${p.to ? "opacity-100 translate-y-0" : "translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100"}`}>
+                <span className={`shrink-0 grid place-items-center h-10 w-10 bg-prochem-red text-white transition-all duration-300 ${p.feature ? "opacity-100 translate-y-0" : "translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100"}`}>
                   <ArrowUpRight size={18} />
                 </span>
               </div>
-              {p.to && (
+              {p.feature && (
                 <div className="absolute top-4 right-4">
                   <span data-testid="product-view-details" className="font-mono uppercase text-[0.65rem] tracking-[0.2em] bg-prochem-red text-white px-2.5 py-1">
                     View Details

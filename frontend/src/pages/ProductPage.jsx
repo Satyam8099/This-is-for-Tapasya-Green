@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import useLenis from "@/hooks/useLenis";
-import { PRODUCT_DETAIL, IMAGES, CONTACT } from "@/lib/site-data";
+import { PRODUCT_DETAILS, IMAGES, CONTACT } from "@/lib/site-data";
 
 const reveal = {
   hidden: { opacity: 0, y: 40 },
@@ -16,14 +16,17 @@ const reveal = {
 
 export default function ProductPage() {
   useLenis();
-  const p = PRODUCT_DETAIL;
+  const { slug } = useParams();
+  const p = PRODUCT_DETAILS[slug];
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [slug]);
+
+  if (!p) return <Navigate to="/" replace />;
 
   return (
-    <div className="App bg-background min-h-screen" data-testid="product-page">
+    <div className="App bg-background min-h-screen" data-testid="product-page" data-slug={slug}>
       <div className="noise-overlay" aria-hidden />
 
       {/* Header */}
@@ -48,10 +51,10 @@ export default function ProductPage() {
       <section className="grid-lines pt-32 md:pt-44 pb-16 md:pb-24">
         <div className="mx-auto max-w-[1600px] px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div variants={reveal} initial="hidden" animate="show">
-            <span className="font-mono uppercase text-xs tracking-[0.3em] text-prochem-red">
+            <span data-testid="product-series" className="font-mono uppercase text-xs tracking-[0.3em] text-prochem-red">
               {p.series}
             </span>
-            <h1 className="mt-5 font-display font-bold uppercase tracking-tighter leading-[0.9] text-5xl md:text-7xl text-ink">
+            <h1 data-testid="product-name" className="mt-5 font-display font-bold uppercase tracking-tighter leading-[0.9] text-5xl md:text-7xl text-ink">
               {p.name}
             </h1>
             <p className="mt-8 max-w-md text-lg text-ink/70 leading-relaxed">{p.intro}</p>
@@ -76,10 +79,10 @@ export default function ProductPage() {
       </section>
 
       {/* Highlights */}
-      <section className="bg-ink text-white">
+      <section className="bg-ink text-white" data-testid="product-highlights">
         <div className="mx-auto max-w-[1600px] px-6 md:px-12 py-20 md:py-28 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
           <h2 className="font-display font-bold uppercase tracking-tighter leading-none text-4xl md:text-6xl">
-            Why the<br />Saizoner
+            Why<br />this machine
           </h2>
           <ul className="space-y-6">
             {p.highlights.map((h, i) => (
@@ -101,7 +104,7 @@ export default function ProductPage() {
       </section>
 
       {/* Specifications */}
-      <section className="bg-white border-b border-black/10">
+      <section className="bg-white border-b border-black/10" data-testid="product-specs">
         <div className="mx-auto max-w-[1600px] px-6 md:px-12 py-20 md:py-28">
           <div className="flex items-center gap-4 mb-12">
             <span className="font-mono uppercase text-xs tracking-[0.3em] text-prochem-red">(Technical Specs)</span>
@@ -127,11 +130,11 @@ export default function ProductPage() {
       </section>
 
       {/* Gallery */}
-      <section className="bg-background">
+      <section className="bg-background" data-testid="product-gallery">
         <div className="mx-auto max-w-[1600px] px-6 md:px-12 py-20 md:py-28 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {p.gallery.map((g, i) => (
             <motion.div
-              key={g}
+              key={`${g}-${i}`}
               custom={i}
               variants={reveal}
               initial="hidden"
@@ -149,11 +152,11 @@ export default function ProductPage() {
       <section className="bg-ink text-white">
         <div className="mx-auto max-w-[1600px] px-6 md:px-12 py-24 md:py-32">
           <h2 className="font-display font-bold uppercase tracking-tighter leading-[0.85] text-5xl md:text-8xl">
-            Specify a Saizoner<span className="text-prochem-red">.</span>
+            Specify this machine<span className="text-prochem-red">.</span>
           </h2>
           <div className="mt-10 flex flex-wrap gap-4">
             <a
-              href={`mailto:${CONTACT.email}?subject=Saizoner%20Enquiry`}
+              href={`mailto:${CONTACT.email}?subject=${encodeURIComponent(p.name + " Enquiry")}`}
               data-testid="product-enquire"
               className="group inline-flex items-center gap-3 bg-prochem-red text-white pl-8 pr-6 py-4 font-mono uppercase text-sm tracking-[0.15em] hover:bg-white hover:text-ink transition-colors"
             >
