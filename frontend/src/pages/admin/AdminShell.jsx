@@ -20,7 +20,7 @@ export default function AdminShell() {
 
   return (
     <div className="min-h-screen flex bg-background" data-testid="admin-shell">
-      <aside className="w-64 shrink-0 bg-tapasya-blue text-white flex flex-col">
+      <aside className="w-64 shrink-0 bg-slate-800 text-white flex flex-col">
         <div className="p-6 border-b border-white/10">
           <Link to="/admin" className="flex items-center gap-3">
             <img src="/logo.png" alt="Prochem Tapasya" className="h-9 w-auto bg-white p-1.5 rounded" />

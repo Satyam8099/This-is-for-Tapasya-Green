@@ -62,7 +62,7 @@ export default function AdminSettings() {
       </div>
 
       <div className="mt-6 flex items-center gap-4">
-        <button data-testid="save-settings" onClick={save} className="inline-flex items-center gap-2 bg-tapasya-blue text-white pl-5 pr-4 py-3 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-tapasya-blue">
+        <button data-testid="save-settings" onClick={save} className="inline-flex items-center gap-2 bg-slate-800 text-white pl-5 pr-4 py-3 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-slate-800">
           <Save size={14} /> Save Settings
         </button>
         {saved && <span className="font-mono uppercase text-[0.65rem] tracking-widest text-green-600">{saved}</span>}

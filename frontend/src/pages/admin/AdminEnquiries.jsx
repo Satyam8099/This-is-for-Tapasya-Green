@@ -57,7 +57,7 @@ export default function AdminEnquiries() {
             data-testid={`filter-${t.key || "all"}`}
             onClick={() => setType(t.key)}
             className={`px-4 py-2 font-mono uppercase text-[0.65rem] tracking-[0.2em] border ${
-              type === t.key ? "border-tapasya-blue bg-tapasya-blue text-white" : "border-black/15 text-ink/70 hover:border-ink"
+              type === t.key ? "border-tapasya-blue bg-slate-800 text-white" : "border-black/15 text-ink/70 hover:border-ink"
             }`}
           >
             {t.label}
@@ -68,7 +68,7 @@ export default function AdminEnquiries() {
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-6">
         <div className="lg:col-span-3 bg-white border border-black/10 overflow-hidden">
           <table className="w-full text-left text-sm">
-            <thead className="bg-tapasya-blue text-white font-mono uppercase text-[0.6rem] tracking-[0.2em]">
+            <thead className="bg-slate-800 text-white font-mono uppercase text-[0.6rem] tracking-[0.2em]">
               <tr>
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Type</th>
@@ -88,7 +88,7 @@ export default function AdminEnquiries() {
                   key={e.id}
                   data-testid={`enquiry-row-${e.id}`}
                   onClick={() => setSelected(e)}
-                  className={`border-t border-black/10 cursor-pointer ${selected?.id === e.id ? "bg-tapasya-blue/5" : "hover:bg-black/[0.02]"}`}
+                  className={`border-t border-black/10 cursor-pointer ${selected?.id === e.id ? "bg-slate-800/5" : "hover:bg-black/[0.02]"}`}
                 >
                   <td className="px-4 py-3 font-mono text-xs text-ink/60">{new Date(e.created_at).toLocaleString()}</td>
                   <td className="px-4 py-3 font-mono uppercase text-[0.65rem] tracking-widest text-tapasya-blue">{e.type}</td>
@@ -143,14 +143,14 @@ export default function AdminEnquiries() {
                   <button
                     key={s}
                     onClick={() => setStatus(selected.id, s)}
-                    className={`px-3 py-2 font-mono uppercase text-[0.6rem] tracking-widest border ${selected.status === s ? "border-tapasya-blue bg-tapasya-blue text-white" : "border-black/15 text-ink/70 hover:border-ink"}`}
+                    className={`px-3 py-2 font-mono uppercase text-[0.6rem] tracking-widest border ${selected.status === s ? "border-tapasya-blue bg-slate-800 text-white" : "border-black/15 text-ink/70 hover:border-ink"}`}
                   >
                     {s}
                   </button>
                 ))}
                 <a
                   href={`mailto:${selected.email}?subject=${encodeURIComponent("Re: " + (selected.subject || selected.type))}`}
-                  className="inline-flex items-center gap-2 px-3 py-2 font-mono uppercase text-[0.6rem] tracking-widest border border-ink hover:bg-tapasya-blue hover:text-white"
+                  className="inline-flex items-center gap-2 px-3 py-2 font-mono uppercase text-[0.6rem] tracking-widest border border-ink hover:bg-slate-800 hover:text-white"
                 >
                   <Check size={12} /> Reply by Email
                 </a>

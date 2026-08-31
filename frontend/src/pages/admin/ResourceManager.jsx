@@ -64,7 +64,7 @@ export default function ResourceManager({
           </div>
           <ul className="max-h-[70vh] overflow-y-auto">
             {items.map((it) => (
-              <li key={it.id} className={`border-b border-black/5 ${current?.id === it.id ? "bg-tapasya-blue/5" : ""}`}>
+              <li key={it.id} className={`border-b border-black/5 ${current?.id === it.id ? "bg-slate-800/5" : ""}`}>
                 <button onClick={() => setCurrent(it)} className="w-full text-left px-4 py-3">
                   <p className="font-display uppercase tracking-tight text-sm text-ink truncate">{it[labelKey] || it.slug || "(untitled)"}</p>
                   {it[slugField] && <p className="font-mono text-[0.6rem] tracking-widest text-ink/40 mt-1">{it[slugField]}</p>}
@@ -130,11 +130,11 @@ export default function ResourceManager({
               </div>
 
               <div className="mt-6 flex items-center gap-3 flex-wrap">
-                <button disabled={busy} onClick={save} data-testid={`${testidPrefix}-save`} className="inline-flex items-center gap-2 bg-tapasya-blue text-white pl-5 pr-4 py-2.5 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-ink disabled:opacity-50">
+                <button disabled={busy} onClick={save} data-testid={`${testidPrefix}-save`} className="inline-flex items-center gap-2 bg-slate-800 text-white pl-5 pr-4 py-2.5 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-slate-900 disabled:opacity-50">
                   <Save size={14} /> Save
                 </button>
                 {current.id && (
-                  <button onClick={() => remove(current)} className="inline-flex items-center gap-2 border border-black/15 px-4 py-2.5 font-mono uppercase text-[0.65rem] tracking-widest text-ink/70 hover:bg-tapasya-blue hover:text-white hover:border-ink">
+                  <button onClick={() => remove(current)} className="inline-flex items-center gap-2 border border-black/15 px-4 py-2.5 font-mono uppercase text-[0.65rem] tracking-widest text-ink/70 hover:bg-slate-800 hover:text-white hover:border-ink">
                     <Trash2 size={14} /> Delete
                   </button>
                 )}

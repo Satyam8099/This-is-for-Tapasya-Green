@@ -56,7 +56,7 @@ export default function AdminUsers() {
           <option value="manager">Manager</option>
           <option value="admin">Admin</option>
         </select>
-        <button type="submit" data-testid="add-user" className="inline-flex items-center justify-center gap-2 bg-tapasya-blue text-white py-2.5 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-tapasya-blue">
+        <button type="submit" data-testid="add-user" className="inline-flex items-center justify-center gap-2 bg-slate-800 text-white py-2.5 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-slate-800">
           <UserPlus size={14} /> Add
         </button>
       </form>
@@ -64,7 +64,7 @@ export default function AdminUsers() {
 
       <div className="mt-8 bg-white border border-black/10 overflow-hidden max-w-5xl">
         <table className="w-full text-left text-sm">
-          <thead className="bg-tapasya-blue text-white font-mono uppercase text-[0.6rem] tracking-[0.2em]">
+          <thead className="bg-slate-800 text-white font-mono uppercase text-[0.6rem] tracking-[0.2em]">
             <tr>
               <th className="px-4 py-3">Email</th>
               <th className="px-4 py-3">Name</th>

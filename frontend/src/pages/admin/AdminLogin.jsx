@@ -24,7 +24,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen grid md:grid-cols-2 bg-background">
-      <div className="hidden md:flex flex-col justify-between p-12 bg-tapasya-blue text-white">
+      <div className="hidden md:flex flex-col justify-between p-12 bg-slate-800 text-white">
         <Link to="/">
           <img src="/logo.png" alt="Prochem Tapasya" className="h-12 w-auto bg-white p-2 rounded" />
         </Link>
@@ -82,7 +82,7 @@ export default function AdminLogin() {
               data-testid="login-submit"
               type="submit"
               disabled={busy}
-              className="w-full inline-flex items-center justify-center gap-3 bg-tapasya-blue text-white py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-ink transition-colors disabled:opacity-50"
+              className="w-full inline-flex items-center justify-center gap-3 bg-slate-800 text-white py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-slate-900 transition-colors disabled:opacity-50"
             >
               {busy ? "Signing in..." : "Sign In"} <LogIn size={14} />
             </button>
