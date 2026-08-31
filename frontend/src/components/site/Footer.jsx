@@ -93,7 +93,7 @@ export default function Footer() {
             <span className="text-ink/60">
               A digital experience by{" "}
               <a
-                href="https://adcommedia.com"
+                href="https://www.adcommedia.in"
                 target="_blank"
                 rel="noreferrer"
                 data-testid="footer-adcom"
