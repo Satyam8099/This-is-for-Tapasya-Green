@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { CONTACT } from "@/lib/site-data";
-import { scrollToId } from "@/hooks/useLenis";
 
 export default function Footer() {
   return (
@@ -63,15 +63,21 @@ export default function Footer() {
           <div className="md:col-span-3">
             <p className="font-mono uppercase text-xs tracking-[0.25em] text-ink/40 mb-4">Navigate</p>
             <div className="flex flex-col gap-3">
-              {["about", "capabilities", "products", "global"].map((id) => (
-                <button
-                  key={id}
-                  data-testid={`footer-nav-${id}`}
-                  onClick={() => scrollToId(id)}
+              {[
+                { label: "About", to: "/about" },
+                { label: "Capabilities", to: "/capabilities" },
+                { label: "Global", to: "/global" },
+                { label: "Spares & Service", to: "/spares" },
+                { label: "Contact", to: "/contact" },
+              ].map((l) => (
+                <Link
+                  key={l.to}
+                  data-testid={`footer-nav-${l.to.slice(1)}`}
+                  to={l.to}
                   className="text-left capitalize link-underline text-ink/70 w-fit"
                 >
-                  {id}
-                </button>
+                  {l.label}
+                </Link>
               ))}
             </div>
           </div>

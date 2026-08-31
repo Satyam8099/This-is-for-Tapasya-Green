@@ -1,4 +1,6 @@
-import useLenis from "@/hooks/useLenis";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import useLenis, { scrollToId } from "@/hooks/useLenis";
 import Navbar from "@/components/site/Navbar";
 import Hero from "@/components/site/Hero";
 import StatsBand from "@/components/site/StatsBand";
@@ -11,6 +13,17 @@ import Footer from "@/components/site/Footer";
 
 export default function Home() {
   useLenis();
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash?.replace("#", "");
+    if (hash) {
+      // wait for lenis + layout
+      const t = setTimeout(() => scrollToId(hash), 600);
+      return () => clearTimeout(t);
+    }
+  }, [location.hash]);
+
   return (
     <div className="App" data-testid="home-page">
       <div className="noise-overlay" aria-hidden />
