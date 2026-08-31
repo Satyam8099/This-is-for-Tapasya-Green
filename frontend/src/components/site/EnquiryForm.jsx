@@ -1,11 +1,22 @@
 import { useState } from "react";
-import { Send } from "lucide-react";
+import { Send, Check } from "lucide-react";
 import { CONTACT } from "@/lib/site-data";
+import api from "@/lib/api";
 
 const inputCls =
   "w-full bg-white border border-white/20 px-4 py-3 font-mono text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-prochem-red transition-colors";
 
 const labelCls = "font-mono uppercase text-[0.65rem] tracking-[0.25em] text-white/60 mb-2 block";
+
+function inferType(subject = "") {
+  const s = subject.toLowerCase();
+  if (s.includes("rfq") || s.startsWith("product")) return "product_rfq";
+  if (s.includes("spare")) return "spare_parts";
+  if (s.includes("consultation") || s.includes("technical")) return "consultation";
+  if (s.includes("export") || s.includes("global")) return "export";
+  if (s.includes("company profile") || s.includes("about")) return "company_profile";
+  return "contact";
+}
 
 /**
  * Reusable page-specific enquiry form. Submits by opening a pre-filled
@@ -32,23 +43,39 @@ export default function EnquiryForm({
 }) {
   const initial = Object.fromEntries(fields.map((f) => [f.name, f.defaultValue || ""]));
   const [values, setValues] = useState(initial);
+  const [status, setStatus] = useState({ state: "idle", msg: "" });
 
   const set = (n, v) => setValues((s) => ({ ...s, [n]: v }));
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const lines = fields
-      .filter((f) => f.name !== "message")
-      .map((f) => `${f.label}: ${values[f.name] || "-"}`);
-    const message = values.message || "";
-    const body =
-      `Enquiry: ${subject}\n\n` +
-      lines.join("\n") +
-      (message ? `\n\nMessage:\n${message}\n` : "\n");
-    const finalSubject = `${subject}${values.company ? ` · ${values.company}` : ""}`;
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
-      finalSubject,
-    )}&body=${encodeURIComponent(body)}`;
+    setStatus({ state: "sending", msg: "" });
+    const payload = {
+      type: inferType(subject),
+      subject,
+      source_page: typeof window !== "undefined" ? window.location.pathname : "",
+      name: values.name,
+      company: values.company,
+      email: values.email,
+      phone: values.phone,
+      country: values.country,
+      message: values.message,
+      product: values.product,
+      product_slug: undefined,
+      category: values.category,
+      ...values,
+    };
+    try {
+      await api.post("/enquiries", payload);
+      setStatus({ state: "sent", msg: "Thanks — we've received your enquiry. We'll be in touch shortly." });
+      setValues(initial);
+    } catch (err) {
+      // fallback to mailto so the lead is never lost
+      const lines = fields.filter((f) => f.name !== "message").map((f) => `${f.label}: ${values[f.name] || "-"}`);
+      const body = `Enquiry: ${subject}\n\n${lines.join("\n")}${values.message ? `\n\nMessage:\n${values.message}\n` : "\n"}`;
+      const finalSubject = `${subject}${values.company ? ` · ${values.company}` : ""}`;
+      window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(finalSubject)}&body=${encodeURIComponent(body)}`;
+    }
   };
 
   return (
@@ -129,15 +156,21 @@ export default function EnquiryForm({
               </div>
             );
           })}
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 flex items-center gap-4 flex-wrap">
             <button
               type="submit"
+              disabled={status.state === "sending"}
               data-testid={`${testid}-submit`}
-              className="group inline-flex items-center gap-3 bg-prochem-red text-white pl-6 pr-5 py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-white hover:text-ink transition-colors"
+              className="group inline-flex items-center gap-3 bg-prochem-red text-white pl-6 pr-5 py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-white hover:text-ink transition-colors disabled:opacity-50"
             >
-              {submitLabel}
-              <Send size={14} className="transition-transform group-hover:translate-x-0.5" />
+              {status.state === "sending" ? "Sending…" : submitLabel}
+              {status.state === "sent" ? <Check size={14} /> : <Send size={14} className="transition-transform group-hover:translate-x-0.5" />}
             </button>
+            {status.state === "sent" && (
+              <span data-testid={`${testid}-success`} className="font-mono uppercase text-[0.65rem] tracking-widest text-green-400">
+                {status.msg}
+              </span>
+            )}
           </div>
         </form>
       </div>

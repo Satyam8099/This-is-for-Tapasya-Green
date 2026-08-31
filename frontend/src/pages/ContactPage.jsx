@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin, MessageCircle, ArrowUpRight, Send } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle, ArrowUpRight, Send, Check } from "lucide-react";
 import PageShell from "@/components/site/PageShell";
 import { PageHero, Section } from "@/components/site/PageParts";
 import { CONTACT } from "@/lib/site-data";
+import api from "@/lib/api";
 
 const ENQUIRY_CHANNELS = [
   { key: "sales", title: "Sales Enquiry", body: "New machine, complete line or quotation request.", subject: "Sales Enquiry" },
@@ -31,19 +32,34 @@ export default function ContactPage() {
     message: "",
   });
 
-  const submit = (e) => {
+  const [status, setStatus] = useState({ state: "idle", msg: "" });
+
+  const submit = async (e) => {
     e.preventDefault();
+    setStatus({ state: "sending", msg: "" });
     const channel = ENQUIRY_CHANNELS.find((c) => c.key === form.type);
-    const subject = `${channel?.subject || "Enquiry"} · ${form.company || form.name || "Prochem Tapasya"}`;
-    const body =
-      `Enquiry Type: ${channel?.title}\n` +
-      `Name: ${form.name}\n` +
-      `Company: ${form.company}\n` +
-      `Email: ${form.email}\n` +
-      `Phone: ${form.phone}\n` +
-      `Country: ${form.country}\n\n` +
-      `Message:\n${form.message}\n`;
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const typeMap = { sales: "contact", technical: "consultation", spares: "spare_parts", service: "contact" };
+    const payload = {
+      type: typeMap[form.type] || "contact",
+      subject: channel?.subject,
+      source_page: "/contact",
+      name: form.name,
+      company: form.company,
+      email: form.email,
+      phone: form.phone,
+      country: form.country,
+      message: form.message,
+      enquiry_channel: channel?.title,
+    };
+    try {
+      await api.post("/enquiries", payload);
+      setStatus({ state: "sent", msg: "Thanks — we've received your enquiry." });
+      setForm({ type: "sales", name: "", company: "", email: "", phone: "", country: "", message: "" });
+    } catch {
+      const subject = `${channel?.subject || "Enquiry"} · ${form.company || form.name || "Prochem Tapasya"}`;
+      const body = `Enquiry Type: ${channel?.title}\nName: ${form.name}\nCompany: ${form.company}\nEmail: ${form.email}\nPhone: ${form.phone}\nCountry: ${form.country}\n\nMessage:\n${form.message}\n`;
+      window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
   };
 
   const inputCls =
@@ -162,15 +178,21 @@ export default function ContactPage() {
           <input data-testid="form-phone" placeholder="Phone" className={inputCls} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
           <input data-testid="form-country" placeholder="Country" className={`${inputCls} md:col-span-2`} value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
           <textarea required data-testid="form-message" placeholder="Your message — include batch size, application and compliance needs." rows={5} className={`${inputCls} md:col-span-2 resize-none`} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 flex items-center gap-4 flex-wrap">
             <button
               type="submit"
+              disabled={status.state === "sending"}
               data-testid="form-submit"
-              className="group inline-flex items-center gap-3 bg-prochem-red text-white pl-6 pr-5 py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-ink transition-colors"
+              className="group inline-flex items-center gap-3 bg-prochem-red text-white pl-6 pr-5 py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-ink transition-colors disabled:opacity-50"
             >
-              Send Enquiry
-              <Send size={14} className="transition-transform group-hover:translate-x-0.5" />
+              {status.state === "sending" ? "Sending…" : "Send Enquiry"}
+              {status.state === "sent" ? <Check size={14} /> : <Send size={14} className="transition-transform group-hover:translate-x-0.5" />}
             </button>
+            {status.state === "sent" && (
+              <span data-testid="contact-form-success" className="font-mono uppercase text-[0.65rem] tracking-widest text-green-600">
+                {status.msg}
+              </span>
+            )}
           </div>
         </form>
       </Section>

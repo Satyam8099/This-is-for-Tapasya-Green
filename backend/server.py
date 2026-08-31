@@ -1,89 +1,105 @@
-from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
-from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
-import os
-import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
-import uuid
-from datetime import datetime, timezone
-
 
 ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
+load_dotenv(ROOT_DIR / ".env")
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
+import os
+import logging
+from fastapi import FastAPI, APIRouter
+from starlette.middleware.cors import CORSMiddleware
+from motor.motor_asyncio import AsyncIOMotorClient
+from datetime import datetime, timezone
+
+from auth import hash_password, verify_password
+from routes.users import router as users_router
+from routes.enquiries import router as enquiries_router
+from routes.content import router as content_router
+from seed import seed_defaults
+
+# --- MongoDB ---
+mongo_url = os.environ["MONGO_URL"]
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client[os.environ["DB_NAME"]]
 
-# Create the main app without a prefix
-app = FastAPI()
 
-# Create a router with the /api prefix
+def get_db():
+    return db
+
+
+# --- App ---
+app = FastAPI(title="Prochem Tapasya API")
+
 api_router = APIRouter(prefix="/api")
 
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class StatusCheckCreate(BaseModel):
-    client_name: str
-
-# Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"service": "prochem-tapasya-api", "status": "ok"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+api_router.include_router(users_router)
+api_router.include_router(enquiries_router)
+api_router.include_router(content_router)
 
-# Include the router in the main app
 app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
+
+# --- Startup: bootstrap admin + seed + indexes ---
+@app.on_event("startup")
+async def on_startup():
+    # Indexes
+    try:
+        await db.users.create_index("email", unique=True)
+        await db.enquiries.create_index([("created_at", -1)])
+        await db.products.create_index("slug", unique=True)
+        await db.categories.create_index("slug", unique=True)
+        await db.blog_posts.create_index("slug", unique=True)
+        await db.blog_categories.create_index("slug", unique=True)
+        await db.pages.create_index("slug", unique=True)
+    except Exception as e:
+        logger.warning(f"Index creation issue: {e}")
+
+    # Admin bootstrap (idempotent)
+    admin_email = os.environ.get("ADMIN_EMAIL", "").lower().strip()
+    admin_password = os.environ.get("ADMIN_PASSWORD", "")
+    if admin_email and admin_password:
+        existing = await db.users.find_one({"email": admin_email})
+        if not existing:
+            await db.users.insert_one(
+                {
+                    "email": admin_email,
+                    "password_hash": hash_password(admin_password),
+                    "name": "Admin",
+                    "role": "admin",
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                }
+            )
+            logger.info(f"Bootstrapped admin user: {admin_email}")
+        else:
+            # If password changed via env, refresh hash to match .env
+            if not verify_password(admin_password, existing.get("password_hash", "")):
+                await db.users.update_one(
+                    {"_id": existing["_id"]},
+                    {"$set": {"password_hash": hash_password(admin_password), "role": "admin"}},
+                )
+                logger.info(f"Refreshed admin password from env for: {admin_email}")
+
+    # Seed content defaults
+    await seed_defaults(db)
+
+
 @app.on_event("shutdown")
-async def shutdown_db_client():
+async def on_shutdown():
     client.close()
