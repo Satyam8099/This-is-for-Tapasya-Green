@@ -47,7 +47,7 @@ export default function AdminEnquiries() {
 
   return (
     <div className="p-8 md:p-12" data-testid="admin-enquiries">
-      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-prochem-red">(Inbox)</p>
+      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-tapasya-blue">(Inbox)</p>
       <h1 className="mt-4 font-display font-bold uppercase tracking-tighter leading-none text-4xl md:text-5xl text-ink">Enquiries</h1>
 
       <div className="mt-8 flex flex-wrap gap-2">
@@ -57,7 +57,7 @@ export default function AdminEnquiries() {
             data-testid={`filter-${t.key || "all"}`}
             onClick={() => setType(t.key)}
             className={`px-4 py-2 font-mono uppercase text-[0.65rem] tracking-[0.2em] border ${
-              type === t.key ? "border-prochem-red bg-prochem-red text-white" : "border-black/15 text-ink/70 hover:border-ink"
+              type === t.key ? "border-tapasya-blue bg-tapasya-blue text-white" : "border-black/15 text-ink/70 hover:border-ink"
             }`}
           >
             {t.label}
@@ -68,7 +68,7 @@ export default function AdminEnquiries() {
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-6">
         <div className="lg:col-span-3 bg-white border border-black/10 overflow-hidden">
           <table className="w-full text-left text-sm">
-            <thead className="bg-ink text-white font-mono uppercase text-[0.6rem] tracking-[0.2em]">
+            <thead className="bg-tapasya-blue text-white font-mono uppercase text-[0.6rem] tracking-[0.2em]">
               <tr>
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Type</th>
@@ -88,10 +88,10 @@ export default function AdminEnquiries() {
                   key={e.id}
                   data-testid={`enquiry-row-${e.id}`}
                   onClick={() => setSelected(e)}
-                  className={`border-t border-black/10 cursor-pointer ${selected?.id === e.id ? "bg-prochem-red/5" : "hover:bg-black/[0.02]"}`}
+                  className={`border-t border-black/10 cursor-pointer ${selected?.id === e.id ? "bg-tapasya-blue/5" : "hover:bg-black/[0.02]"}`}
                 >
                   <td className="px-4 py-3 font-mono text-xs text-ink/60">{new Date(e.created_at).toLocaleString()}</td>
-                  <td className="px-4 py-3 font-mono uppercase text-[0.65rem] tracking-widest text-prochem-red">{e.type}</td>
+                  <td className="px-4 py-3 font-mono uppercase text-[0.65rem] tracking-widest text-tapasya-blue">{e.type}</td>
                   <td className="px-4 py-3">{e.name || "—"}</td>
                   <td className="px-4 py-3 text-ink/70">{e.company || "—"}</td>
                   <td className="px-4 py-3">
@@ -100,7 +100,7 @@ export default function AdminEnquiries() {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <button data-testid={`delete-${e.id}`} onClick={(ev) => { ev.stopPropagation(); remove(e.id); }} className="text-ink/40 hover:text-prochem-red">
+                    <button data-testid={`delete-${e.id}`} onClick={(ev) => { ev.stopPropagation(); remove(e.id); }} className="text-ink/40 hover:text-tapasya-blue">
                       <Trash2 size={14} />
                     </button>
                   </td>
@@ -115,7 +115,7 @@ export default function AdminEnquiries() {
             <div className="bg-white border border-black/10 p-6 text-ink/50 text-sm">Select an enquiry to view details.</div>
           ) : (
             <div className="bg-white border border-black/10 p-6" data-testid="enquiry-detail">
-              <p className="font-mono uppercase text-[0.6rem] tracking-widest text-prochem-red">{selected.type}</p>
+              <p className="font-mono uppercase text-[0.6rem] tracking-widest text-tapasya-blue">{selected.type}</p>
               <h3 className="mt-2 font-display uppercase tracking-tight text-2xl text-ink">
                 {selected.name || selected.email || "Enquiry"}
               </h3>
@@ -143,14 +143,14 @@ export default function AdminEnquiries() {
                   <button
                     key={s}
                     onClick={() => setStatus(selected.id, s)}
-                    className={`px-3 py-2 font-mono uppercase text-[0.6rem] tracking-widest border ${selected.status === s ? "border-prochem-red bg-prochem-red text-white" : "border-black/15 text-ink/70 hover:border-ink"}`}
+                    className={`px-3 py-2 font-mono uppercase text-[0.6rem] tracking-widest border ${selected.status === s ? "border-tapasya-blue bg-tapasya-blue text-white" : "border-black/15 text-ink/70 hover:border-ink"}`}
                   >
                     {s}
                   </button>
                 ))}
                 <a
                   href={`mailto:${selected.email}?subject=${encodeURIComponent("Re: " + (selected.subject || selected.type))}`}
-                  className="inline-flex items-center gap-2 px-3 py-2 font-mono uppercase text-[0.6rem] tracking-widest border border-ink hover:bg-ink hover:text-white"
+                  className="inline-flex items-center gap-2 px-3 py-2 font-mono uppercase text-[0.6rem] tracking-widest border border-ink hover:bg-tapasya-blue hover:text-white"
                 >
                   <Check size={12} /> Reply by Email
                 </a>

@@ -30,7 +30,7 @@ export default function AdminNews() {
     load();
   };
 
-  const inputCls = "w-full bg-white border border-black/15 px-3 py-2 font-mono text-sm focus:outline-none focus:border-prochem-red";
+  const inputCls = "w-full bg-white border border-black/15 px-3 py-2 font-mono text-sm focus:outline-none focus:border-tapasya-blue";
   const label = "font-mono uppercase text-[0.6rem] tracking-[0.2em] text-ink/50 block mb-1";
 
   const fields = tab === "news"
@@ -39,12 +39,12 @@ export default function AdminNews() {
 
   return (
     <div className="p-8 md:p-12" data-testid="admin-news">
-      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-prochem-red">(News & Events)</p>
+      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-tapasya-blue">(News & Events)</p>
       <h1 className="mt-4 font-display font-bold uppercase tracking-tighter leading-none text-4xl md:text-5xl text-ink">News & Events</h1>
 
       <div className="mt-6 flex gap-2">
         {[{ k: "news", l: "News" }, { k: "events", l: "Events" }].map((t) => (
-          <button key={t.k} onClick={() => { setTab(t.k); setCurrent(null); }} className={`px-4 py-2 font-mono uppercase text-[0.65rem] tracking-[0.2em] border ${tab === t.k ? "border-prochem-red bg-prochem-red text-white" : "border-black/15 text-ink/70 hover:border-ink"}`}>{t.l}</button>
+          <button key={t.k} onClick={() => { setTab(t.k); setCurrent(null); }} className={`px-4 py-2 font-mono uppercase text-[0.65rem] tracking-[0.2em] border ${tab === t.k ? "border-tapasya-blue bg-tapasya-blue text-white" : "border-black/15 text-ink/70 hover:border-ink"}`}>{t.l}</button>
         ))}
       </div>
 
@@ -52,11 +52,11 @@ export default function AdminNews() {
         <div className="bg-white border border-black/10">
           <div className="p-4 border-b border-black/10 flex items-center justify-between">
             <span className="font-mono uppercase text-[0.65rem] tracking-widest text-ink/50">{tab} ({items.length})</span>
-            <button onClick={() => setCurrent(empty())} className="inline-flex items-center gap-1 text-prochem-red font-mono uppercase text-[0.6rem] tracking-widest"><Plus size={12} /> New</button>
+            <button onClick={() => setCurrent(empty())} className="inline-flex items-center gap-1 text-tapasya-blue font-mono uppercase text-[0.6rem] tracking-widest"><Plus size={12} /> New</button>
           </div>
           <ul className="max-h-[70vh] overflow-y-auto">
             {items.map((it) => (
-              <li key={it.id} className={`border-b border-black/5 ${current?.id === it.id ? "bg-prochem-red/5" : ""}`}>
+              <li key={it.id} className={`border-b border-black/5 ${current?.id === it.id ? "bg-tapasya-blue/5" : ""}`}>
                 <button onClick={() => setCurrent(it)} className="w-full text-left px-4 py-3">
                   <p className="font-display uppercase text-sm text-ink truncate">{it.title}</p>
                   <p className="font-mono text-[0.6rem] tracking-widest text-ink/40 mt-1">{it.date}</p>
@@ -79,8 +79,8 @@ export default function AdminNews() {
                 ))}
               </div>
               <div className="mt-6 flex items-center gap-3 flex-wrap">
-                <button onClick={save} className="inline-flex items-center gap-2 bg-prochem-red text-white pl-5 pr-4 py-2.5 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-ink"><Save size={14} /> Save</button>
-                {current.id && <button onClick={() => remove(current)} className="inline-flex items-center gap-2 border border-black/15 px-4 py-2.5 font-mono uppercase text-[0.65rem] tracking-widest text-ink/70 hover:bg-ink hover:text-white hover:border-ink"><Trash2 size={14} /> Delete</button>}
+                <button onClick={save} className="inline-flex items-center gap-2 bg-tapasya-blue text-white pl-5 pr-4 py-2.5 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-ink"><Save size={14} /> Save</button>
+                {current.id && <button onClick={() => remove(current)} className="inline-flex items-center gap-2 border border-black/15 px-4 py-2.5 font-mono uppercase text-[0.65rem] tracking-widest text-ink/70 hover:bg-tapasya-blue hover:text-white hover:border-ink"><Trash2 size={14} /> Delete</button>}
                 {msg && <span className="font-mono uppercase text-[0.6rem] tracking-widest text-green-600">{msg}</span>}
               </div>
             </div>

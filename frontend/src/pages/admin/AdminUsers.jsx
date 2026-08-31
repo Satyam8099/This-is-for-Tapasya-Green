@@ -40,11 +40,11 @@ export default function AdminUsers() {
     alert("Password updated");
   };
 
-  const inputCls = "w-full bg-white border border-black/15 px-4 py-2.5 font-mono text-sm focus:outline-none focus:border-prochem-red";
+  const inputCls = "w-full bg-white border border-black/15 px-4 py-2.5 font-mono text-sm focus:outline-none focus:border-tapasya-blue";
 
   return (
     <div className="p-8 md:p-12" data-testid="admin-users">
-      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-prochem-red">(Team)</p>
+      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-tapasya-blue">(Team)</p>
       <h1 className="mt-4 font-display font-bold uppercase tracking-tighter leading-none text-4xl md:text-5xl text-ink">Users & Roles</h1>
       <p className="mt-4 text-ink/60 max-w-2xl">Transfer admin or manager access to any email address. Only admins can manage users.</p>
 
@@ -56,15 +56,15 @@ export default function AdminUsers() {
           <option value="manager">Manager</option>
           <option value="admin">Admin</option>
         </select>
-        <button type="submit" data-testid="add-user" className="inline-flex items-center justify-center gap-2 bg-prochem-red text-white py-2.5 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-ink">
+        <button type="submit" data-testid="add-user" className="inline-flex items-center justify-center gap-2 bg-tapasya-blue text-white py-2.5 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-tapasya-blue">
           <UserPlus size={14} /> Add
         </button>
       </form>
-      {error && <p className="mt-3 text-sm text-prochem-red font-mono max-w-4xl">{error}</p>}
+      {error && <p className="mt-3 text-sm text-red-600 font-mono max-w-4xl">{error}</p>}
 
       <div className="mt-8 bg-white border border-black/10 overflow-hidden max-w-5xl">
         <table className="w-full text-left text-sm">
-          <thead className="bg-ink text-white font-mono uppercase text-[0.6rem] tracking-[0.2em]">
+          <thead className="bg-tapasya-blue text-white font-mono uppercase text-[0.6rem] tracking-[0.2em]">
             <tr>
               <th className="px-4 py-3">Email</th>
               <th className="px-4 py-3">Name</th>
@@ -86,9 +86,9 @@ export default function AdminUsers() {
                 </td>
                 <td className="px-4 py-3 font-mono text-xs text-ink/50">{new Date(u.created_at).toLocaleDateString()}</td>
                 <td className="px-4 py-3 text-right flex gap-3 justify-end">
-                  <button onClick={() => resetPassword(u)} className="font-mono uppercase text-[0.6rem] tracking-widest text-ink/60 hover:text-prochem-red">Reset PW</button>
+                  <button onClick={() => resetPassword(u)} className="font-mono uppercase text-[0.6rem] tracking-widest text-ink/60 hover:text-tapasya-blue">Reset PW</button>
                   {u.id !== me.id && (
-                    <button onClick={() => remove(u)} className="text-ink/40 hover:text-prochem-red"><Trash2 size={14} /></button>
+                    <button onClick={() => remove(u)} className="text-ink/40 hover:text-tapasya-blue"><Trash2 size={14} /></button>
                   )}
                 </td>
               </tr>

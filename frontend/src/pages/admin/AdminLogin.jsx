@@ -24,7 +24,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen grid md:grid-cols-2 bg-background">
-      <div className="hidden md:flex flex-col justify-between p-12 bg-ink text-white">
+      <div className="hidden md:flex flex-col justify-between p-12 bg-tapasya-blue text-white">
         <Link to="/">
           <img src="/logo.png" alt="Prochem Tapasya" className="h-12 w-auto invert" />
         </Link>
@@ -32,7 +32,7 @@ export default function AdminLogin() {
           <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-white/40">(Admin Panel)</p>
           <h1 className="mt-6 font-display font-bold uppercase tracking-tighter leading-[0.85] text-5xl">
             Prochem Tapasya<br />
-            <span className="text-prochem-red">Control Room.</span>
+            <span className="text-tapasya-blue">Control Room.</span>
           </h1>
           <p className="mt-6 max-w-md text-white/60">
             Manage enquiries, products, blog, news, pages, SEO and team access from a single dashboard.
@@ -45,7 +45,7 @@ export default function AdminLogin() {
           <div className="md:hidden mb-8">
             <img src="/logo.png" alt="Prochem Tapasya" className="h-10 w-auto" />
           </div>
-          <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-prochem-red">(Sign In)</p>
+          <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-tapasya-blue">(Sign In)</p>
           <h2 className="mt-4 font-display font-bold uppercase tracking-tighter leading-none text-4xl md:text-5xl text-ink">
             Welcome back.
           </h2>
@@ -59,7 +59,7 @@ export default function AdminLogin() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-2 w-full bg-white border border-black/15 px-4 py-3 font-mono text-sm focus:outline-none focus:border-prochem-red"
+                className="mt-2 w-full bg-white border border-black/15 px-4 py-3 font-mono text-sm focus:outline-none focus:border-tapasya-blue"
                 placeholder="you@company.com"
               />
             </label>
@@ -71,24 +71,24 @@ export default function AdminLogin() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-2 w-full bg-white border border-black/15 px-4 py-3 font-mono text-sm focus:outline-none focus:border-prochem-red"
+                className="mt-2 w-full bg-white border border-black/15 px-4 py-3 font-mono text-sm focus:outline-none focus:border-tapasya-blue"
                 placeholder="••••••••"
               />
             </label>
             {error && (
-              <p data-testid="login-error" className="text-sm text-prochem-red font-mono">{error}</p>
+              <p data-testid="login-error" className="text-sm text-red-600 font-mono">{error}</p>
             )}
             <button
               data-testid="login-submit"
               type="submit"
               disabled={busy}
-              className="w-full inline-flex items-center justify-center gap-3 bg-prochem-red text-white py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-ink transition-colors disabled:opacity-50"
+              className="w-full inline-flex items-center justify-center gap-3 bg-tapasya-blue text-white py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-ink transition-colors disabled:opacity-50"
             >
               {busy ? "Signing in..." : "Sign In"} <LogIn size={14} />
             </button>
           </div>
           <p className="mt-8 font-mono uppercase text-[0.6rem] tracking-[0.25em] text-ink/40">
-            <Link to="/" className="hover:text-prochem-red">← Back to Website</Link>
+            <Link to="/" className="hover:text-tapasya-blue">← Back to Website</Link>
           </p>
         </form>
       </div>

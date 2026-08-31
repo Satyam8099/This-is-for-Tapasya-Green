@@ -19,7 +19,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="p-8 md:p-12" data-testid="admin-dashboard">
-      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-prochem-red">(Overview)</p>
+      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-tapasya-blue">(Overview)</p>
       <h1 className="mt-4 font-display font-bold uppercase tracking-tighter leading-none text-4xl md:text-5xl text-ink">Dashboard</h1>
 
       <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -63,7 +63,7 @@ export default function AdminDashboard() {
 function StatBox({ icon: Icon, label, value }) {
   return (
     <div className="bg-white border border-black/10 p-5">
-      <Icon size={18} className="text-prochem-red" />
+      <Icon size={18} className="text-tapasya-blue" />
       <p className="mt-4 font-mono uppercase text-[0.6rem] tracking-[0.25em] text-ink/50">{label}</p>
       <p className="mt-2 font-display font-bold uppercase text-3xl text-ink">{value}</p>
     </div>

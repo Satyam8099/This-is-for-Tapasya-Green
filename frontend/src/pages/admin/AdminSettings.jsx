@@ -15,7 +15,7 @@ export default function AdminSettings() {
     setTimeout(() => setSaved(""), 1500);
   };
 
-  const inputCls = "w-full bg-white border border-black/15 px-4 py-2.5 font-mono text-sm focus:outline-none focus:border-prochem-red";
+  const inputCls = "w-full bg-white border border-black/15 px-4 py-2.5 font-mono text-sm focus:outline-none focus:border-tapasya-blue";
   const labelCls = "font-mono uppercase text-[0.65rem] tracking-[0.25em] text-ink/50 block mb-2";
 
   const Card = ({ title, children }) => (
@@ -27,7 +27,7 @@ export default function AdminSettings() {
 
   return (
     <div className="p-8 md:p-12" data-testid="admin-settings">
-      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-prochem-red">(Site)</p>
+      <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-tapasya-blue">(Site)</p>
       <h1 className="mt-4 font-display font-bold uppercase tracking-tighter leading-none text-4xl md:text-5xl text-ink">Settings</h1>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl">
@@ -62,7 +62,7 @@ export default function AdminSettings() {
       </div>
 
       <div className="mt-6 flex items-center gap-4">
-        <button data-testid="save-settings" onClick={save} className="inline-flex items-center gap-2 bg-prochem-red text-white pl-5 pr-4 py-3 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-ink">
+        <button data-testid="save-settings" onClick={save} className="inline-flex items-center gap-2 bg-tapasya-blue text-white pl-5 pr-4 py-3 font-mono uppercase text-[0.65rem] tracking-widest hover:bg-tapasya-blue">
           <Save size={14} /> Save Settings
         </button>
         {saved && <span className="font-mono uppercase text-[0.65rem] tracking-widest text-green-600">{saved}</span>}
