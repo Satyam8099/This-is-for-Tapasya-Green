@@ -23,7 +23,7 @@ export default function AdminShell() {
       <aside className="w-64 shrink-0 bg-tapasya-blue text-white flex flex-col">
         <div className="p-6 border-b border-white/10">
           <Link to="/admin" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Prochem Tapasya" className="h-9 w-auto invert" />
+            <img src="/logo.png" alt="Prochem Tapasya" className="h-9 w-auto bg-white p-1.5 rounded" />
           </Link>
           <p className="mt-3 font-mono uppercase text-[0.6rem] tracking-[0.25em] text-white/40">Admin Panel</p>
         </div>

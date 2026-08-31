@@ -26,7 +26,7 @@ export default function AdminLogin() {
     <div className="min-h-screen grid md:grid-cols-2 bg-background">
       <div className="hidden md:flex flex-col justify-between p-12 bg-tapasya-blue text-white">
         <Link to="/">
-          <img src="/logo.png" alt="Prochem Tapasya" className="h-12 w-auto invert" />
+          <img src="/logo.png" alt="Prochem Tapasya" className="h-12 w-auto bg-white p-2 rounded" />
         </Link>
         <div>
           <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-white/40">(Admin Panel)</p>
