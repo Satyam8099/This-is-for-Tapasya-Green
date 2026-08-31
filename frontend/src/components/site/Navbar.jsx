@@ -9,10 +9,13 @@ const Logo = () => (
   <Link
     to="/"
     data-testid="nav-logo"
-    className="font-display uppercase tracking-tight text-xl md:text-2xl leading-none"
+    className="flex items-center leading-none"
   >
-    <span className="text-prochem-red font-bold">PROCHEM</span>
-    <span className="text-tapasya-blue font-bold"> TAPASYA</span>
+    <img
+      src="/logo.png"
+      alt="Prochem Tapasya"
+      className="h-11 md:h-12 w-auto"
+    />
   </Link>
 );
 

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Check, MapPin } from "lucide-react";
 import PageShell from "@/components/site/PageShell";
 import { PageHero, Section, reveal } from "@/components/site/PageParts";
+import EnquiryForm from "@/components/site/EnquiryForm";
 import { IMAGES } from "@/lib/site-data";
 
 const REGIONS = [
@@ -136,6 +137,27 @@ export default function GlobalPage() {
           ))}
         </div>
       </Section>
+
+      <EnquiryForm
+        testid="global-enquiry"
+        index={8}
+        kicker="Export Enquiry"
+        title="Discuss your export project."
+        description="Let us know your destination country and machine interest — we'll respond with an indicative quotation and delivery window."
+        subject="Global / Export Enquiry"
+        submitLabel="Send Export Enquiry"
+        fields={[
+          { name: "name", label: "Full Name", placeholder: "Your name", required: true },
+          { name: "company", label: "Company", placeholder: "Company name", required: true },
+          { name: "email", label: "Email", placeholder: "you@company.com", type: "email", required: true },
+          { name: "phone", label: "Phone", placeholder: "+... phone with country code" },
+          { name: "country", label: "Destination Country", placeholder: "e.g. Vietnam", required: true },
+          { name: "product-interest", label: "Product Interest", placeholder: "e.g. Saizoner 400 L, FBD 250 kg" },
+          { name: "incoterm", label: "Preferred Incoterm", type: "select", options: ["EXW", "FOB", "CIF", "DAP", "DDP"] },
+          { name: "target-timeline", label: "Target Delivery", placeholder: "e.g. Q3 2026" },
+          { name: "message", label: "Project Notes", placeholder: "Application, batch size, compliance & documentation needs.", type: "textarea", colspan: 2 },
+        ]}
+      />
     </PageShell>
   );
 }

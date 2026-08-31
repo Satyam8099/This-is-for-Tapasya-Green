@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import PageShell from "@/components/site/PageShell";
 import { PageHero, Section, reveal } from "@/components/site/PageParts";
+import EnquiryForm from "@/components/site/EnquiryForm";
 import { IMAGES } from "@/lib/site-data";
 
 const TIMELINE = [
@@ -160,6 +161,24 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+
+      <EnquiryForm
+        testid="about-enquiry"
+        index={9}
+        kicker="Get in Touch"
+        title="Request the company profile."
+        description="Company profile deck, quality manual or partnership discussion — tell us what you're after."
+        subject="About / Company Profile Enquiry"
+        submitLabel="Request Profile"
+        fields={[
+          { name: "name", label: "Full Name", placeholder: "Your name", required: true },
+          { name: "company", label: "Company", placeholder: "Company name" },
+          { name: "email", label: "Email", placeholder: "you@company.com", type: "email", required: true },
+          { name: "phone", label: "Phone", placeholder: "+91 ..." },
+          { name: "interest", label: "Interest", type: "select", options: ["Company Profile", "Partnership Discussion", "Investor / Media", "Career"], colspan: 2 },
+          { name: "message", label: "Message", placeholder: "A brief note about your interest.", type: "textarea", colspan: 2 },
+        ]}
+      />
     </PageShell>
   );
 }

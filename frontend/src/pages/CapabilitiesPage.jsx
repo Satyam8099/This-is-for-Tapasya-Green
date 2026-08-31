@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import PageShell from "@/components/site/PageShell";
 import { PageHero, Section, reveal } from "@/components/site/PageParts";
+import EnquiryForm from "@/components/site/EnquiryForm";
 import { IMAGES } from "@/lib/site-data";
 
 const BLOCKS = [
@@ -113,6 +114,25 @@ export default function CapabilitiesPage() {
           </div>
         </Section>
       ))}
+
+      <EnquiryForm
+        testid="capabilities-enquiry"
+        index={10}
+        kicker="Book Consultation"
+        title="Talk to an engineer."
+        description="Share your process brief — we'll respond with a scoped proposal or a technical call."
+        subject="Capabilities / Technical Consultation"
+        submitLabel="Request Consultation"
+        fields={[
+          { name: "name", label: "Full Name", placeholder: "Your name", required: true },
+          { name: "company", label: "Company", placeholder: "Company name", required: true },
+          { name: "email", label: "Email", placeholder: "you@company.com", type: "email", required: true },
+          { name: "phone", label: "Phone", placeholder: "+91 ..." },
+          { name: "application", label: "Application", type: "select", options: ["Pharmaceutical", "Nutraceutical", "Food", "Chemical", "Cosmetics", "Other"] },
+          { name: "batch-size", label: "Target Batch Size", placeholder: "e.g. 400 L Saizoner" },
+          { name: "message", label: "Process Brief", placeholder: "Materials, current process, compliance level, timeline.", type: "textarea", required: true, colspan: 2 },
+        ]}
+      />
     </PageShell>
   );
 }

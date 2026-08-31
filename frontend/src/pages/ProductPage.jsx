@@ -12,6 +12,7 @@ import useLenis from "@/hooks/useLenis";
 import { PRODUCT_DETAILS, IMAGES, CONTACT } from "@/lib/site-data";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
+import EnquiryForm from "@/components/site/EnquiryForm";
 import {
   Accordion,
   AccordionContent,
@@ -635,35 +636,48 @@ export default function ProductPage() {
       </section>
 
       {/* 17. RFQ / ENQUIRY */}
-      <section className="bg-ink text-white" data-testid="section-rfq">
-        <div className="mx-auto max-w-[1600px] px-6 md:px-12 py-24 md:py-32">
-          <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-white/40 mb-6">
-            (17) Enquiry / RFQ
+      <EnquiryForm
+        testid="product-rfq"
+        index={17}
+        kicker="Request For Quotation"
+        title={<>Get a quote for<br /><span className="text-prochem-red">{p.name}.</span></>}
+        description="Share your batch size, application and compliance requirement. We usually respond with an indicative quotation and delivery window within two business days."
+        subject={`RFQ · ${p.name}`}
+        submitLabel="Send RFQ"
+        fields={[
+          { name: "product", label: "Product", defaultValue: p.name, placeholder: p.name },
+          { name: "category", label: "Category", defaultValue: p.categoryName, placeholder: p.categoryName },
+          { name: "name", label: "Full Name", placeholder: "Your name", required: true },
+          { name: "company", label: "Company", placeholder: "Company name", required: true },
+          { name: "email", label: "Email", placeholder: "you@company.com", type: "email", required: true },
+          { name: "phone", label: "Phone", placeholder: "+91 ..." },
+          { name: "batch-size", label: "Batch Size", placeholder: "e.g. 400 L / 250 kg", required: true },
+          { name: "application", label: "Application", type: "select", options: ["Pharmaceutical", "Nutraceutical", "Food", "Chemical", "Cosmetics", "Other"] },
+          { name: "compliance", label: "Compliance Requirement", type: "select", options: ["cGMP", "cGMP + 21 CFR Part 11", "OEB-3 Contained", "OEB-4 Contained", "ATEX / IECEx", "Industrial (non-regulated)"] },
+          { name: "target-country", label: "Target Country", placeholder: "e.g. India / UAE / Vietnam" },
+          { name: "message", label: "Notes", placeholder: "Utilities available, timelines, integration constraints.", type: "textarea", colspan: 2 },
+        ]}
+      />
+
+      {/* Direct-contact banner */}
+      <section className="bg-white border-t border-black/10" data-testid="section-rfq">
+        <div className="mx-auto max-w-[1600px] px-6 md:px-12 py-16 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <p className="font-display uppercase tracking-tight text-2xl md:text-3xl text-ink">
+            Prefer to talk?
           </p>
-          <h2 className="font-display font-bold uppercase tracking-tighter leading-[0.85] text-5xl md:text-8xl">
-            Get a quote for<br />
-            <span className="text-prochem-red">{p.name}.</span>
-          </h2>
-          <p className="mt-8 max-w-xl text-white/70 text-lg">
-            Share your batch size, application and compliance requirement. We usually respond
-            with an indicative quotation and delivery window within two business days.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3">
             <a
               href={enquiryHref}
               data-testid="rfq-email"
-              className="group inline-flex items-center gap-3 bg-prochem-red text-white pl-8 pr-6 py-4 font-mono uppercase text-sm tracking-[0.15em] hover:bg-white hover:text-ink transition-colors"
+              className="group inline-flex items-center gap-3 bg-prochem-red text-white pl-6 pr-5 py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-ink transition-colors"
             >
-              Send RFQ Email
-              <ArrowUpRight
-                size={18}
-                className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-              />
+              Email RFQ
+              <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a
               href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
               data-testid="rfq-call"
-              className="inline-flex items-center gap-3 border border-white/25 text-white px-8 py-4 font-mono uppercase text-sm tracking-[0.15em] hover:border-white transition-colors"
+              className="inline-flex items-center gap-3 border border-ink text-ink px-6 py-3.5 font-mono uppercase text-xs tracking-[0.15em] hover:bg-ink hover:text-white transition-colors"
             >
               Call {CONTACT.phone}
             </a>

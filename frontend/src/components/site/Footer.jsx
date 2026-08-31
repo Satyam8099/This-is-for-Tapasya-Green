@@ -35,11 +35,13 @@ export default function Footer() {
         {/* details */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 py-16">
           <div className="md:col-span-5">
-            <div className="font-display uppercase tracking-tight text-2xl">
-              <span className="text-prochem-red font-bold">PROCHEM</span>
-              <span className="text-tapasya-blue font-bold"> TAPASYA</span>
-            </div>
-            <p className="mt-4 max-w-sm text-ink/60">
+            <img
+              src="/logo.png"
+              alt="Prochem Tapasya"
+              data-testid="footer-logo"
+              className="h-12 w-auto"
+            />
+            <p className="mt-5 max-w-sm text-ink/60">
               An innovative granulation company offering integrated process & validated solutions
               since 1962.
             </p>

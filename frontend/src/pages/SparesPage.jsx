@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Wrench, Cog, Zap, ShieldCheck, Truck, Timer, ArrowUpRight } from "lucide-react";
 import PageShell from "@/components/site/PageShell";
 import { PageHero, Section, reveal } from "@/components/site/PageParts";
+import EnquiryForm from "@/components/site/EnquiryForm";
 import { CONTACT } from "@/lib/site-data";
 
 const enquiryHref = (subject) =>
@@ -123,6 +124,28 @@ export default function SparesPage() {
           </a>
         </div>
       </Section>
+
+      <EnquiryForm
+        testid="spares-enquiry"
+        index={7}
+        kicker="Parts Enquiry Form"
+        title="Get availability & delivery."
+        description="Send us the machine tag / GA number and the required part — we'll respond with stock, price and delivery within one business day."
+        subject="Spare Parts Enquiry"
+        submitLabel="Send Parts Enquiry"
+        fields={[
+          { name: "name", label: "Full Name", placeholder: "Your name", required: true },
+          { name: "company", label: "Company", placeholder: "Site / plant name", required: true },
+          { name: "email", label: "Email", placeholder: "you@company.com", type: "email", required: true },
+          { name: "phone", label: "Phone", placeholder: "+91 ..." },
+          { name: "machine-model", label: "Machine Model", placeholder: "e.g. Saizoner SZ-400", required: true },
+          { name: "tag-ga", label: "Machine Tag / GA No.", placeholder: "Nameplate tag or GA number" },
+          { name: "part-required", label: "Part Required", placeholder: "e.g. FBD polyester bag filter, 5 nos.", required: true },
+          { name: "quantity", label: "Quantity", placeholder: "e.g. 5" },
+          { name: "urgency", label: "Urgency", type: "select", options: ["Breakdown (24 hr)", "Urgent (3-5 days)", "Standard (2-3 weeks)", "Planning / stock"] },
+          { name: "message", label: "Additional Notes", placeholder: "Any drawing / photo references or alternative parts.", type: "textarea", colspan: 2 },
+        ]}
+      />
     </PageShell>
   );
 }
