@@ -7,6 +7,9 @@ import CapabilitiesPage from "@/pages/CapabilitiesPage";
 import GlobalPage from "@/pages/GlobalPage";
 import SparesPage from "@/pages/SparesPage";
 import ContactPage from "@/pages/ContactPage";
+import BlogPage from "@/pages/BlogPage";
+import BlogPostPage from "@/pages/BlogPostPage";
+import NewsPage from "@/pages/NewsPage";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
         <Route path="/global" element={<GlobalPage />} />
         <Route path="/spares" element={<SparesPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/news" element={<NewsPage />} />
       </Routes>
     </BrowserRouter>
   );

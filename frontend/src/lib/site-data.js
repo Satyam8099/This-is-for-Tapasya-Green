@@ -22,7 +22,9 @@ export const NAV_LINKS = [
   { label: "About", to: "/about" },
   { label: "Capabilities", to: "/capabilities" },
   { label: "Global", to: "/global" },
-  { label: "Spares & Service", to: "/spares" },
+  { label: "Spares", to: "/spares" },
+  { label: "Blog", to: "/blog" },
+  { label: "News", to: "/news" },
   { label: "Contact", to: "/contact" },
 ];
 

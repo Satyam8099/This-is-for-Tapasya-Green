@@ -70,6 +70,8 @@ export default function Footer() {
                 { label: "Capabilities", to: "/capabilities" },
                 { label: "Global", to: "/global" },
                 { label: "Spares & Service", to: "/spares" },
+                { label: "Blog", to: "/blog" },
+                { label: "News & Events", to: "/news" },
                 { label: "Contact", to: "/contact" },
               ].map((l) => (
                 <Link
@@ -86,7 +88,22 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-black/10 pt-8 flex flex-col md:flex-row justify-between gap-4 font-mono uppercase text-[0.7rem] tracking-[0.2em] text-ink/40">
-          <span>© {new Date().getFullYear()} Prochem Tapasya. All rights reserved.</span>
+          <span data-testid="footer-copy">
+            © {new Date().getFullYear()} Prochem Tapasya. All rights reserved.{" "}
+            <span className="text-ink/60">
+              A digital experience by{" "}
+              <a
+                href="https://adcommedia.com"
+                target="_blank"
+                rel="noreferrer"
+                data-testid="footer-adcom"
+                className="text-prochem-red hover:underline"
+              >
+                Adcom Media
+              </a>
+              .
+            </span>
+          </span>
           <span>Granulation · Drying · Milling · Blending · Coating</span>
         </div>
       </div>
