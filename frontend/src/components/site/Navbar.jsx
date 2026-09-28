@@ -60,7 +60,7 @@ function MegaMenu({ open, onClose }) {
             <div className="mx-auto max-w-[1600px] px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-12 gap-10">
               <div className="md:col-span-5 border-r border-black/10 pr-6">
                 <p className="font-mono uppercase text-[0.65rem] tracking-[0.25em] text-ink/40 mb-6">
-                  (Product Categories · 09)
+                  (Product Categories · {CATEGORIES.length.toString().padStart(2, "0")})
                 </p>
                 <ul>
                   {CATEGORIES.map((c, i) => (

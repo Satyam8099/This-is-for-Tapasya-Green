@@ -31,33 +31,32 @@ export const NAV_LINKS = [
 export const STATS = [
   { value: 60, suffix: "+", label: "Years of Engineering" },
   { value: 5, suffix: " Industries", label: "Pharma / Food / Chemical" },
-  { value: 1, prefix: "#", suffix: "", label: "Saizoner Market Leader" },
+  { value: 1, prefix: "#", suffix: "", label: "Granulation Market Leader" },
 ];
 
 export const CAPABILITIES = [
-  { n: "01", name: "Granulation", img: "machinery_1", desc: "High shear & rapid mixer granulators engineered for uniform particle growth." },
-  { n: "02", name: "Drying", img: "plant_1", desc: "Fluid bed dryers delivering precise moisture control at any scale." },
-  { n: "03", name: "Milling", img: "machinery_3", desc: "Multi mills and cone mills for consistent, repeatable size reduction." },
-  { n: "04", name: "Blending", img: "machinery_2", desc: "Bin, conta and double cone blenders for homogeneous batches." },
-  { n: "05", name: "Micronising", img: "laboratory_1", desc: "Ultra-fine particle processing for advanced formulations." },
-  { n: "06", name: "Coating", img: "laboratory_2", desc: "Validated coating systems for functional & aesthetic finishes." },
-  { n: "07", name: "Pelletising", img: "machinery_1", desc: "Integrated pelletising lines for modified release dosage forms." },
+  { n: "01", name: "Granulating", img: "machinery_1", desc: "High shear mixer granulators and binder preparation for uniform particle growth." },
+  { n: "02", name: "Drying", img: "plant_1", desc: "Fluid bed, tray and roto cone vacuum dryers for precise moisture control." },
+  { n: "03", name: "Milling", img: "machinery_3", desc: "Cone mills, multi mills and sifters for consistent, repeatable size reduction." },
+  { n: "04", name: "Blending", img: "machinery_2", desc: "V, conta, octagonal and ribbon blenders for homogeneous batches." },
+  { n: "05", name: "Material Handling", img: "laboratory_1", desc: "IBCs, elevators, tippers and weighing for closed, traceable transfer." },
+  { n: "06", name: "Cleaning", img: "laboratory_2", desc: "Bin wash systems and CIP / WIP skids for validated cleaning." },
 ];
 
 // Homepage featured products (span-based bento layout)
 const FEATURED_SPANS = {
-  "saizoner": { span: "md:col-span-8", feature: true },
-  "fluid-bed-dryer": { span: "md:col-span-4" },
-  "rapid-mixer-granulator": { span: "md:col-span-4" },
-  "ribbon-blender": { span: "md:col-span-4" },
+  "high-shear-mixer-granulator": { span: "md:col-span-8", feature: true },
+  "fluid-bed-equipment": { span: "md:col-span-4" },
   "multi-mill": { span: "md:col-span-4" },
-  "bin-blender": { span: "md:col-span-6" },
+  "ribbon-blender": { span: "md:col-span-4" },
+  "tap-cone-mill": { span: "md:col-span-4" },
+  "conta-blender": { span: "md:col-span-6" },
   "double-cone-blender": { span: "md:col-span-6" },
   "oscillating-granulator": { span: "md:col-span-4" },
-  "cone-mill": { span: "md:col-span-4" },
-  "planetary-mixer": { span: "md:col-span-4" },
-  "tablet-coating-machine": { span: "md:col-span-6" },
-  "conta-blender": { span: "md:col-span-6" },
+  "roto-cone-vacuum-dryer": { span: "md:col-span-4" },
+  "v-blender": { span: "md:col-span-4" },
+  "plough-shear-mixer": { span: "md:col-span-6" },
+  "bin-wash-system": { span: "md:col-span-6" },
 };
 
 export const PRODUCTS = FEATURED_SLUGS.map((slug) => {

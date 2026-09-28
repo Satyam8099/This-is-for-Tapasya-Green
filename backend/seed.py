@@ -2,15 +2,12 @@
 from datetime import datetime, timezone
 
 DEFAULT_CATEGORIES = [
-    {"slug": "granulating", "name": "Granulating", "tagline": "Wet & dry granulation systems"},
-    {"slug": "drying", "name": "Drying", "tagline": "Fluid bed, tray & vacuum dryers"},
-    {"slug": "milling", "name": "Milling / Size Reduction", "tagline": "Impact, conical & oscillating mills"},
-    {"slug": "blending", "name": "Blending", "tagline": "Tumble, ribbon & contained blenders"},
-    {"slug": "bins", "name": "Bins & Material Handling", "tagline": "IBCs, drums, tippers & weighing"},
-    {"slug": "pelletising", "name": "Pelletising", "tagline": "Extrusion, spheronisation & coating"},
-    {"slug": "coating", "name": "Coating", "tagline": "Tablet & pellet coating systems"},
-    {"slug": "micronising", "name": "Micronising", "tagline": "Air-jet & fine-particle systems"},
-    {"slug": "special", "name": "Special / Process Equipment", "tagline": "Ancillary & transfer systems"},
+    {"slug": "granulating", "name": "Granulating", "tagline": "High shear granulation & binder preparation"},
+    {"slug": "drying", "name": "Drying", "tagline": "Fluid bed, tray & vacuum drying"},
+    {"slug": "milling", "name": "Milling", "tagline": "Cone mills, multi mills & sifters"},
+    {"slug": "blending", "name": "Blending", "tagline": "Tumble, ribbon & shear blending"},
+    {"slug": "material-handling", "name": "Material Handling", "tagline": "IBCs, elevators, tippers & weighing"},
+    {"slug": "cleaning", "name": "Cleaning", "tagline": "Bin washing & CIP / WIP skids"},
 ]
 
 DEFAULT_BLOG = [
@@ -79,48 +76,37 @@ DEFAULT_SETTINGS = {
 
 DEFAULT_PRODUCTS = [
     # Granulating
-    {"slug":"saizoner","category":"granulating","name":"Saizoner","tag":"High Shear Mixer Granulator · Flagship","hero":"machinery_1","short":"Flagship high-shear mixer granulator — the Tapasya Saizoner is deployed by leading Indian and global pharmaceutical manufacturers.","applications":["Pharmaceutical","Nutraceutical","Food","Fine Chemicals"]},
-    {"slug":"high-shear-mixer-granulator","category":"granulating","name":"High Shear Mixer Granulator","tag":"Wet Granulation","hero":"machinery_1","short":"Bottom-drive high-shear mixer granulator for reproducible wet granulation.","applications":["Pharmaceutical","Nutraceutical"]},
-    {"slug":"rapid-mixer-granulator","category":"granulating","name":"Rapid Mixer Granulator","tag":"RMG · Wet Granulation","hero":"laboratory_1","short":"Compact RMG for wet mixing and granulation across R&D and mid-scale.","applications":["Pharmaceutical","Nutraceutical","Food"]},
-    {"slug":"rapid-granulator","category":"granulating","name":"Rapid Granulator","tag":"Rapid Wet Granulator","hero":"laboratory_1","short":"Compact rapid granulator engineered for short batch cycles.","applications":["Pharmaceutical","Nutraceutical"]},
-    {"slug":"oscillating-granulator","category":"granulating","name":"Oscillating Granulator","tag":"Dry Sizing","hero":"machinery_2","short":"Oscillating rotor for consistent dry sizing of wet or dried granules.","applications":["Pharmaceutical","Nutraceutical","Food"]},
+    {"slug":"high-shear-mixer-granulator","category":"granulating","name":"High Shear Mixer Granulator","tag":"Wet Granulation","hero":"machinery_1","short":"Bottom-drive high-shear mixer granulator for reproducible wet granulation.","applications":["Pharmaceutical","Nutraceutical","Fine chemicals"]},
+    {"slug":"high-shear-mixer-granulator-r2t","category":"granulating","name":"High Shear Mixer Granulator - R2T","tag":"R2T · Lab & Pilot Scale","hero":"laboratory_1","short":"Compact R2T high-shear mixer granulator for formulation development and scale-up trials.","applications":["Formulation development","Scale-up trials","Clinical batches"]},
+    {"slug":"binder-preparation-vessel","category":"granulating","name":"Binder Preparation Vessel","tag":"Binder / Paste Preparation","hero":"laboratory_2","short":"Jacketed binder preparation vessel for controlled heating, dissolution and transfer of granulation binders.","applications":["Pharmaceutical","Nutraceutical","Food"]},
     # Drying
-    {"slug":"fluid-bed-dryer","category":"drying","name":"Fluid Bed Dryer","tag":"FBD Series","hero":"plant_1","short":"Fluid bed dryer for precise moisture control on pharma and nutraceutical granules.","applications":["Pharmaceutical","Nutraceutical","Food","Chemical"]},
-    {"slug":"tray-dryer","category":"drying","name":"Tray Dryer","tag":"Batch Drying","hero":"plant_1","short":"Hot-air tray dryer for solids, granules, powders and heat-tolerant intermediates.","applications":["Pharmaceutical","Chemical","Food"]},
-    {"slug":"vacuum-tray-dryer","category":"drying","name":"Vacuum Tray Dryer","tag":"Low-Temperature Drying","hero":"plant_1","short":"Vacuum tray dryer for heat-sensitive APIs and intermediates.","applications":["API drying","Heat-sensitive intermediates"]},
+    {"slug":"fluid-bed-equipment","category":"drying","name":"Fluid Bed Equipment","tag":"FBD / FBE Series","hero":"plant_1","short":"Fluid bed equipment for precise drying, granulation and coating from lab to commercial scale.","applications":["Pharmaceutical","Nutraceutical","Food","Chemical"]},
+    {"slug":"tray-dryer","category":"drying","name":"Tray Dryer","tag":"Batch Drying","hero":"plant_1","short":"Hot-air tray dryer for solids, granules, powders and heat-tolerant intermediates.","applications":["Pharmaceutical","Chemical","Food","Nutraceutical"]},
+    {"slug":"roto-cone-vacuum-dryer","category":"drying","name":"Roto Cone Vacuum Dryer","tag":"RCVD · Low-Temperature Drying","hero":"plant_1","short":"Rotating double-cone vacuum dryer for gentle, low-temperature drying of heat-sensitive APIs.","applications":["API drying","Solvent recovery","Fine chemical"]},
     # Milling
+    {"slug":"tap-cone-mill","category":"milling","name":"Tap Cone Mill","tag":"Conical Screen Mill","hero":"machinery_3","short":"Conical screen mill for low-heat, low-dust size reduction and inline de-lumping.","applications":["Pharmaceutical","Nutraceutical","Food","Chemical"]},
+    {"slug":"under-driven-cone-mill","category":"milling","name":"Under Driven Cone Mill","tag":"Bottom-Drive Conical Mill","hero":"machinery_3","short":"Under-driven conical mill with the drive below the product zone for dust-tight, in-line size reduction.","applications":["Pharmaceutical solid dosage","Nutraceutical"]},
     {"slug":"multi-mill","category":"milling","name":"Multi Mill","tag":"Beater Mill","hero":"machinery_3","short":"Beater-blade multi mill for wet and dry size reduction.","applications":["Pharmaceutical","Nutraceutical","Food"]},
-    {"slug":"cone-mill","category":"milling","name":"Cone Mill","tag":"Conical Screen Mill","hero":"machinery_3","short":"Conical screen mill for low-heat size reduction and de-lumping.","applications":["Pharmaceutical","Nutraceutical","Food","Chemical"]},
-    {"slug":"co-mill","category":"milling","name":"Co Mill","tag":"In-line Conical Mill","hero":"machinery_3","short":"Compact in-line co-mill for continuous de-lumping between granulation and blending.","applications":["Pharmaceutical solid dosage"]},
-    {"slug":"octagonal-mill","category":"milling","name":"Octagonal Mill","tag":"Octagonal Screen Mill","hero":"machinery_3","short":"Octagonal chamber screen mill for gentle sizing of dry granules.","applications":["Pharmaceutical","Nutraceutical","Food"]},
+    {"slug":"sifter-cum-multi-mill","category":"milling","name":"Sifter Cum Multi Mill","tag":"Combined Sifting & Milling","hero":"machinery_3","short":"Integrated sifter and multi mill on a single frame for one-pass screening and size reduction.","applications":["Pharmaceutical","Nutraceutical","Food"]},
+    {"slug":"oscillating-granulator","category":"milling","name":"Oscillating Granulator","tag":"Dry Sizing","hero":"machinery_2","short":"Oscillating rotor for consistent dry sizing of wet or dried granules.","applications":["Pharmaceutical","Nutraceutical","Food"]},
+    {"slug":"vibratory-sifter","category":"milling","name":"Vibratory Sifter","tag":"Gyro / Vibro Sifter","hero":"machinery_2","short":"Gyroscopic vibratory sifter for grading, scalping and de-dusting of powders and granules.","applications":["Pharmaceutical","Nutraceutical","Food","Chemical"]},
+    {"slug":"delumper","category":"milling","name":"Delumper","tag":"Lump Breaker","hero":"machinery_3","short":"Heavy-duty delumper for breaking agglomerates and lumps in stored or conveyed powders.","applications":["Pharmaceutical","Chemical","Food"]},
     # Blending
+    {"slug":"v-blender","category":"blending","name":"'V' Blender","tag":"V-Cone Tumble Blender","hero":"machinery_1","short":"V-cone tumble blender for gentle blending of free-flowing granules.","applications":["Pharmaceutical","Nutraceutical","Food"]},
     {"slug":"conta-blender","category":"blending","name":"Conta Blender","tag":"Contained Blending","hero":"machinery_2","short":"Container-loaded tumble blender for fully contained blending.","applications":["Pharmaceutical","Nutraceutical"]},
+    {"slug":"octagonal-blender","category":"blending","name":"Octagonal Blender","tag":"Octagonal Tumble Blender","hero":"machinery_2","short":"Octagonal tumble blender for uniform blending of granules.","applications":["Pharmaceutical","Nutraceutical"]},
     {"slug":"double-cone-blender","category":"blending","name":"Double Cone Blender","tag":"Tumble Blending","hero":"machinery_1","short":"Twin-cone tumbler for gentle, dust-free blending of granules.","applications":["Pharmaceutical","Food","Nutraceutical","Chemical"]},
     {"slug":"ribbon-blender","category":"blending","name":"Ribbon Blender","tag":"Horizontal Blending","hero":"machinery_2","short":"Twin helical ribbon geometry for gentle blending of dry powders and granules.","applications":["Chemical","Food","Nutraceutical","Cosmetics"]},
-    {"slug":"octagonal-blender","category":"blending","name":"Octagonal Blender","tag":"Octagonal Tumble Blender","hero":"machinery_2","short":"Octagonal tumble blender for uniform blending of granules.","applications":["Pharmaceutical","Nutraceutical"]},
-    {"slug":"bin-blender","category":"blending","name":"Bin Blender","tag":"IBC Blending","hero":"laboratory_2","short":"IBC blender for contained, cross-contamination-free blending.","applications":["Pharmaceutical","Nutraceutical"]},
-    {"slug":"v-blender","category":"blending","name":"V Blender","tag":"V-Cone Tumble Blender","hero":"machinery_1","short":"V-cone tumble blender for gentle blending of free-flowing granules.","applications":["Pharmaceutical","Nutraceutical","Food"]},
-    # Bins
-    {"slug":"circular-conical-ipc","category":"bins","name":"Circular Conical IPC","tag":"Intermediate Product Container","hero":"laboratory_2","short":"Circular conical IPC for closed transfer of intermediates and finished blends.","applications":["Pharmaceutical","Nutraceutical"]},
-    {"slug":"circular-drums","category":"bins","name":"Circular Drums","tag":"Storage & Transfer Drums","hero":"laboratory_2","short":"Sanitary circular drums for staging intermediates and finished products.","applications":["Pharmaceutical","Nutraceutical","Food"]},
-    {"slug":"conta-bin","category":"bins","name":"Conta Bin / Blending IPC","tag":"Blending Container","hero":"laboratory_2","short":"Blending IPC designed to be tumbled inside a conta blender.","applications":["Pharmaceutical","Nutraceutical"]},
-    {"slug":"tipper","category":"bins","name":"Tipper","tag":"Post / Column Tipper","hero":"plant_1","short":"Column-type post tipper for discharging drums and IBCs.","applications":["Pharmaceutical","Chemical","Food"]},
-    {"slug":"pallet-weighing-system","category":"bins","name":"Pallet Weighing System","tag":"Weighing & Traceability","hero":"laboratory_2","short":"Pallet-scale weighing system with recipe dispensing and batch record integration.","applications":["Pharmaceutical","Nutraceutical","Chemical"]},
-    # Pelletising
-    {"slug":"pelletiser","category":"pelletising","name":"Pelletiser","tag":"Extrusion + Spheronisation","hero":"machinery_1","short":"Extrusion-spheronisation pelletiser producing dense, uniform pellets.","applications":["Modified release APIs","Nutraceutical"]},
-    {"slug":"pellet-coating-system","category":"pelletising","name":"Pellet Coating System","tag":"Wurster / Rotor Coating","hero":"plant_1","short":"Wurster / rotor pellet-coating system for functional and enteric coatings.","applications":["Enteric coating","Sustained release","Taste masking"]},
-    # Coating
-    {"slug":"tablet-coating-machine","category":"coating","name":"Tablet Coating Machine","tag":"Perforated Auto-Coater","hero":"laboratory_2","short":"Fully automatic perforated-pan tablet coater for aqueous and enteric coatings.","applications":["Film coating","Enteric coating","Sugar coating"]},
-    {"slug":"perforated-coating-pan","category":"coating","name":"Perforated Coating Pan","tag":"Pan Assembly","hero":"laboratory_2","short":"Retro-fittable perforated coating pan assembly to upgrade legacy coating suites.","applications":["Coating suite retrofit","R&D pilot"]},
-    {"slug":"coating-system","category":"coating","name":"Coating System","tag":"Complete Coating Solution","hero":"plant_1","short":"Integrated coating suite covering pan, air handling, solution prep and automation.","applications":["Solid dosage lines","Contract manufacturing"]},
-    # Micronising
-    {"slug":"micronizer","category":"micronising","name":"Micronizer","tag":"Fluid-Energy Mill","hero":"machinery_2","short":"Fluid-energy micronizer producing sub-10 micron particle size.","applications":["Inhalation APIs","Fine chemical","Cosmetic pigments"]},
-    {"slug":"air-jet-mill","category":"micronising","name":"Air Jet Mill","tag":"Spiral Jet Mill","hero":"machinery_2","short":"Spiral air-jet mill for narrow-distribution micronisation of heat-sensitive actives.","applications":["Inhalation formulations","APIs","Fine chemicals"]},
-    # Special
-    {"slug":"planetary-mixer","category":"special","name":"Planetary Mixer","tag":"Semi-Solid Mixing","hero":"laboratory_1","short":"Planetary motion mixer for high-viscosity pastes, ointments and semi-solids.","applications":["Pharmaceutical","Cosmetics","Food"]},
-    {"slug":"vacuum-dryer","category":"special","name":"Vacuum Dryer","tag":"Rotary / Conical Vacuum Dryer","hero":"plant_1","short":"Rotary or conical vacuum dryer for gentle drying of heat-sensitive APIs.","applications":["API drying","Solvent recovery","Fine chemical"]},
-    {"slug":"lifter","category":"special","name":"Lifter","tag":"Column / Post Lifter","hero":"plant_1","short":"Hydraulic column lifter for docking IBCs, drums and bins.","applications":["Solid dosage suites","Chemical plants"]},
-    {"slug":"material-transfer-systems","category":"special","name":"Material Transfer Systems","tag":"Pneumatic / Vacuum Transfer","hero":"plant_1","short":"Vacuum and pneumatic material transfer systems for closed, dust-free movement.","applications":["Pharmaceutical","Chemical","Food"]},
+    {"slug":"plough-shear-mixer","category":"blending","name":"Plough Shear Mixer","tag":"High-Intensity Mixing","hero":"machinery_2","short":"Plough shear mixer for rapid, high-intensity mixing of powders with optional choppers.","applications":["Chemical","Food","Nutraceutical","Detergents"]},
+    # Material Handling
+    {"slug":"elevator","category":"material-handling","name":"Elevator","tag":"Bin / Drum Elevator","hero":"plant_1","short":"Hydraulic elevator for lifting and docking IBCs, drums and bins onto process equipment.","applications":["Solid dosage suites","Chemical plants"]},
+    {"slug":"tipper","category":"material-handling","name":"Tipper","tag":"Post / Column Tipper","hero":"plant_1","short":"Column-type post tipper for discharging drums and IBCs.","applications":["Pharmaceutical","Chemical","Food"]},
+    {"slug":"power-transfer-system","category":"material-handling","name":"Power Transfer System","tag":"Powered Conveying & Transfer","hero":"plant_1","short":"Powered transfer system for closed, dust-free movement of powders and granules.","applications":["Pharmaceutical","Chemical","Food"]},
+    {"slug":"ibc","category":"material-handling","name":"IBC (Intermediate Bulk Container)","tag":"Storage & Transfer Container","hero":"laboratory_2","short":"Stainless-steel IBCs for closed storage, transfer and blending of intermediates and finished products.","applications":["Pharmaceutical","Nutraceutical","Food"]},
+    {"slug":"pallet-weighing-truck","category":"material-handling","name":"Pallet Weighing Truck","tag":"Mobile Weighing","hero":"laboratory_2","short":"Pallet truck with integrated weighing for mobile, traceable dispensing and batch verification.","applications":["Pharmaceutical","Nutraceutical","Chemical"]},
+    # Cleaning
+    {"slug":"bin-wash-system","category":"cleaning","name":"Bin Wash System","tag":"Automatic Bin / IBC Washer","hero":"plant_1","short":"Automatic bin wash system for validated cleaning and drying of IBCs, bins, drums and process containers.","applications":["Pharmaceutical","Nutraceutical","Food"]},
+    {"slug":"cip-wip-skid","category":"cleaning","name":"CIP / WIP Skid","tag":"Clean / Wash In Place","hero":"machinery_1","short":"Skid-mounted CIP / WIP system delivering validated cleaning cycles to granulators, dryers, blenders and vessels.","applications":["Pharmaceutical","Nutraceutical","Food","Chemical"]},
 ]
 
 

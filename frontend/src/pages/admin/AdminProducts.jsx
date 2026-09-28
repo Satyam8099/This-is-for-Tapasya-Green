@@ -10,7 +10,7 @@ export default function AdminProducts() {
       labelKey="name"
       fields={[
         { name: "slug", label: "Slug" },
-        { name: "category", label: "Category", type: "select", options: ["granulating","drying","milling","blending","bins","pelletising","coating","micronising","special"] },
+        { name: "category", label: "Category", type: "select", options: ["granulating","drying","milling","blending","material-handling","cleaning"] },
         { name: "name", label: "Name", colspan: 2 },
         { name: "tag", label: "Tag / Series" },
         { name: "hero", label: "Hero image key", placeholder: "machinery_1" },
