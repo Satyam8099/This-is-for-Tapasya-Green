@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -61,7 +61,41 @@ export default function ProductPage() {
     setSelectedModel(0);
   }, [slug]);
 
-  if (!p) return <Navigate to="/" replace />;
+  if (!p) {
+    return (
+      <div className="App bg-background min-h-screen" data-testid="product-not-found">
+        <Navbar />
+        <div className="mx-auto max-w-[1600px] px-6 md:px-12 pt-40 pb-32 min-h-[70vh]">
+          <p className="font-mono uppercase text-[0.65rem] tracking-[0.3em] text-prochem-red">
+            404 · Product Not Found
+          </p>
+          <h1 className="mt-6 font-display font-bold uppercase tracking-tighter leading-[0.9] text-4xl md:text-6xl text-ink">
+            This machine is no longer in the lineup.
+          </h1>
+          <p className="mt-6 max-w-md text-ink/60 text-base md:text-lg">
+            The product you are looking for may have been renamed or retired.
+            Browse the current catalogue or send us an enquiry.
+          </p>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Link
+              to="/"
+              data-testid="not-found-home-link"
+              className="inline-flex items-center gap-2 bg-prochem-red text-white font-mono uppercase text-xs tracking-[0.2em] px-8 py-4 hover:bg-ink transition-colors duration-300"
+            >
+              Back to Home
+            </Link>
+            <Link
+              to="/contact"
+              data-testid="not-found-contact-link"
+              className="inline-flex items-center gap-2 border border-ink/20 text-ink font-mono uppercase text-xs tracking-[0.2em] px-8 py-4 hover:border-prochem-red hover:text-prochem-red transition-colors duration-300"
+            >
+              Enquire
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const enquiryHref = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
     `RFQ · ${p.name}`,
