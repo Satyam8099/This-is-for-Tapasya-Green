@@ -1,6 +1,123 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import api from "@/lib/api";
-import { Save, Plus, Trash2 } from "lucide-react";
+import { Save, Plus, Trash2, Upload, X } from "lucide-react";
+
+const uploadFile = async (file) => {
+  const fd = new FormData();
+  fd.append("file", file);
+  const r = await api.post("/admin/uploads", fd);
+  return r.data.url;
+};
+
+/* Single image field: preview + upload + manual value */
+function ImageField({ label, value, onChange, testid }) {
+  const [busy, setBusy] = useState(false);
+  const inputRef = useRef(null);
+  const isImg = typeof value === "string" && (value.startsWith("/api/files/") || value.startsWith("/products/") || value.startsWith("http"));
+
+  const pick = async (e) => {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f) return;
+    setBusy(true);
+    try {
+      onChange(await uploadFile(f));
+    } catch (err) {
+      alert(err.response?.data?.detail || "Upload failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div>
+      <span className="font-mono uppercase text-[0.6rem] tracking-[0.2em] text-ink/50 block mb-1">{label}</span>
+      <div className="flex items-start gap-3">
+        {isImg && (
+          <img src={value} alt="" data-testid={`${testid}-preview`} className="w-20 h-20 object-cover border border-black/10 bg-slate-50" />
+        )}
+        <div className="flex-1">
+          <input
+            className="w-full bg-white border border-black/15 px-3 py-2 font-mono text-sm focus:outline-none focus:border-tapasya-blue"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="machinery_1 or upload →"
+            data-testid={`${testid}-input`}
+          />
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => inputRef.current?.click()}
+            data-testid={`${testid}-upload`}
+            className="mt-2 inline-flex items-center gap-1.5 border border-black/15 px-3 py-1.5 font-mono uppercase text-[0.6rem] tracking-widest text-ink/70 hover:bg-slate-800 hover:text-white disabled:opacity-50"
+          >
+            <Upload size={12} /> {busy ? "Uploading…" : "Upload photo"}
+          </button>
+          <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={pick} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Multi image field: thumb grid + multi upload + remove */
+function ImagesField({ label, value, onChange, testid }) {
+  const [busy, setBusy] = useState(false);
+  const inputRef = useRef(null);
+  let arr = [];
+  if (Array.isArray(value)) arr = value;
+  else if (typeof value === "string" && value.trim()) {
+    try { arr = JSON.parse(value); } catch { arr = []; }
+  }
+
+  const pick = async (e) => {
+    const files = Array.from(e.target.files || []);
+    e.target.value = "";
+    if (!files.length) return;
+    setBusy(true);
+    try {
+      const urls = [];
+      for (const f of files) urls.push(await uploadFile(f));
+      onChange([...arr, ...urls]);
+    } catch (err) {
+      alert(err.response?.data?.detail || "Upload failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="md:col-span-2">
+      <span className="font-mono uppercase text-[0.6rem] tracking-[0.2em] text-ink/50 block mb-1">{label}</span>
+      <div className="flex flex-wrap gap-3">
+        {arr.map((u, i) => (
+          <div key={`${u}-${i}`} className="relative group">
+            <img src={u} alt="" data-testid={`${testid}-thumb-${i}`} className="w-20 h-20 object-cover border border-black/10 bg-slate-50" />
+            <button
+              type="button"
+              onClick={() => onChange(arr.filter((_, j) => j !== i))}
+              data-testid={`${testid}-remove-${i}`}
+              className="absolute -top-2 -right-2 bg-slate-800 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <X size={12} />
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => inputRef.current?.click()}
+          data-testid={`${testid}-upload`}
+          className="w-20 h-20 border border-dashed border-black/25 inline-flex flex-col items-center justify-center gap-1 text-ink/50 hover:border-tapasya-blue hover:text-tapasya-blue disabled:opacity-50"
+        >
+          <Upload size={14} />
+          <span className="font-mono uppercase text-[0.5rem] tracking-widest">{busy ? "…" : "Add"}</span>
+        </button>
+        <input ref={inputRef} type="file" accept="image/*" multiple className="hidden" onChange={pick} />
+      </div>
+    </div>
+  );
+}
 
 /* Reusable simple resource manager (list on left, editor on right) */
 export default function ResourceManager({
@@ -84,6 +201,28 @@ export default function ResourceManager({
                 {fields.map((f) => {
                   const val = current[f.name] ?? "";
                   const cs = f.colspan === 2 ? "md:col-span-2" : "";
+                  if (f.type === "image") {
+                    return (
+                      <ImageField
+                        key={f.name}
+                        label={f.label}
+                        value={val}
+                        onChange={(v) => setCurrent({ ...current, [f.name]: v })}
+                        testid={`${testidPrefix}-${f.name}`}
+                      />
+                    );
+                  }
+                  if (f.type === "images") {
+                    return (
+                      <ImagesField
+                        key={f.name}
+                        label={f.label}
+                        value={val}
+                        onChange={(v) => setCurrent({ ...current, [f.name]: v })}
+                        testid={`${testidPrefix}-${f.name}`}
+                      />
+                    );
+                  }
                   if (f.type === "textarea") {
                     return (
                       <div key={f.name} className={cs || "md:col-span-2"}>
