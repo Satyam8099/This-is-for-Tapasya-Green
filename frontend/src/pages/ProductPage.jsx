@@ -13,6 +13,7 @@ import { PRODUCT_DETAILS, img, CONTACT } from "@/lib/site-data";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import EnquiryForm from "@/components/site/EnquiryForm";
+import DownloadGate from "@/components/site/DownloadGate";
 import {
   Accordion,
   AccordionContent,
@@ -54,6 +55,7 @@ export default function ProductPage() {
   useLenis();
   const { slug } = useParams();
   const [selectedModel, setSelectedModel] = useState(0);
+  const [gateDoc, setGateDoc] = useState(null);
   const p = PRODUCT_DETAILS[slug];
 
   useEffect(() => {
@@ -580,8 +582,15 @@ export default function ProductPage() {
                     `${d.label} · ${p.name}`,
                   )}`
                 }
-                {...(d.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="group flex items-center justify-between gap-4 border border-black/15 px-6 py-5 hover:border-ink transition-colors"
+                {...(d.href
+                  ? {
+                      onClick: (e) => {
+                        e.preventDefault();
+                        setGateDoc(d);
+                      },
+                    }
+                  : {})}
+                className="group flex items-center justify-between gap-4 border border-black/15 px-6 py-5 hover:border-ink transition-colors cursor-pointer"
               >
                 <div>
                   <p className="font-display uppercase tracking-tight text-lg text-ink">
@@ -724,6 +733,16 @@ export default function ProductPage() {
       </section>
 
       <Footer />
+
+      {/* Gated datasheet download */}
+      {gateDoc && (
+        <DownloadGate
+          doc={gateDoc}
+          productName={p.name}
+          productSlug={slug}
+          onClose={() => setGateDoc(null)}
+        />
+      )}
     </div>
   );
 }

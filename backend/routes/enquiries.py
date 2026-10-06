@@ -21,6 +21,7 @@ VALID_TYPES = {
     "export",
     "general",
     "event",
+    "datasheet_download",
 }
 
 

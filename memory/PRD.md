@@ -48,6 +48,7 @@ Awwwards-level marketing site for Prochem Tapasya (industrial/pharma process equ
 - GET /api/files/{path:path} — PUBLIC serving (marketing assets), Cache-Control public at origin (edge proxy overrides to no-store in preview)
 - Admin UI: ResourceManager.jsx ImageField (preview+upload+editable value), ImagesField (thumb grid, multi-upload, remove) & FileField (PDF link + upload/replace + clear); AdminProducts hero→image, gallery→images, datasheet→file
 - Datasheet Uploads (2026-10-06): products have a `datasheet` PDF field in admin; 4 real datasheets pre-linked (hsmg, hsmg-r2t, binder-preparation-vessel, oscillating-granulator)
+- Gated Downloads (2026-10-06): /app/frontend/src/components/site/DownloadGate.jsx — clicking a real datasheet on a product page opens a lead form (First/Last Name, Business Email w/ free-domain blocklist, Company, Mobile w/ flag dropdown + ipapi.co auto-detect, India default) → POST /api/enquiries type `datasheet_download` → file downloads. Shows in admin Enquiries. Placeholder (non-href) downloads still use mailto
 - Uploaded URLs (/api/files/<path>) are public — usable anywhere, including public site if API-wired later
 - Tested iteration_6: 8/8 backend pytest + full UI flow pass
 
