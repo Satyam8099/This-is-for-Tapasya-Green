@@ -97,7 +97,7 @@ function ImagesField({ label, value, onChange, testid }) {
               type="button"
               onClick={() => onChange(arr.filter((_, j) => j !== i))}
               data-testid={`${testid}-remove-${i}`}
-              className="absolute -top-2 -right-2 bg-slate-800 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute -top-2 -right-2 bg-slate-800 text-white rounded-full p-0.5 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
             >
               <X size={12} />
             </button>

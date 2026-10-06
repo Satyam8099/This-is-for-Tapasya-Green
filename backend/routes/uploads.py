@@ -55,4 +55,8 @@ async def serve_file(path: str):
     if not record:
         raise HTTPException(status_code=404, detail="File not found")
     data, content_type = get_object(path)
-    return Response(content=data, media_type=record.get("content_type", content_type))
+    return Response(
+        content=data,
+        media_type=record.get("content_type", content_type),
+        headers={"Cache-Control": "public, max-age=86400"},
+    )

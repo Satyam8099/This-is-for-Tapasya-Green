@@ -42,6 +42,14 @@ Awwwards-level marketing site for Prochem Tapasya (industrial/pharma process equ
 - Wiring: REAL_PHOTOS/DATASHEETS overlay maps in products.js; img() helper in site-data.js resolves stock keys OR direct /products/* paths; DB + seed.py hero fields synced via /app/backend/sync_real_photos.py
 - Note: HSMG gallery 4.jpg shows a co-mill nameplate — user's own ZIP organization, intentional
 
+## Admin Photo Uploads (added 2026-10-06)
+- Emergent object storage: /app/backend/storage.py (playbook pattern, APP_NAME=prochem-tapasya, EMERGENT_LLM_KEY in backend/.env, init on startup)
+- POST /api/admin/uploads (staff auth; jpg/jpeg/png/webp/pdf; 15MB max; path prochem-tapasya/products/{uuid}.{ext}; db.files record with is_deleted soft-delete)
+- GET /api/files/{path:path} — PUBLIC serving (marketing assets), Cache-Control public at origin (edge proxy overrides to no-store in preview)
+- Admin UI: ResourceManager.jsx ImageField (preview+upload+editable value) & ImagesField (thumb grid, multi-upload, remove); AdminProducts hero→image, gallery→images
+- Uploaded URLs (/api/files/<path>) are public — usable anywhere, including public site if API-wired later
+- Tested iteration_6: 8/8 backend pytest + full UI flow pass
+
 ## Backlog / Next
 - P1: Blog/news seed content still references legacy "Saizoner"/"RMG" (editorial) — confirm with user whether to rewrite
 - P1: Real contact details currently placeholders (info@prochemtapasya.com, +91 22 6666 0000)

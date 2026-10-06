@@ -1,0 +1,27 @@
+{
+  "summary": "Iteration 6 — Admin photo upload feature fully tested end-to-end. Backend pytest suite (8 tests) all green: upload auth required (401), ext allow-list rejects .py/.txt (400), PNG/JPG upload succeeds and returns /api/files/<path>, public GET serves the exact bytes without auth and 404s on unknown paths, product regression intact (26 items incl. v-blender). Frontend Playwright flow all green: admin login, V-Blender shows hero preview+input+upload button+gallery add tile, created TEST product with real PNG upload for hero and 2 PNGs for gallery, hero input receives /api/files/prochem-tapasya/products/<uuid>.png, preview thumbnail renders, both gallery thumbs render, Save persists on reload, direct hit of /api/files/<uuid>.png returns 200 image/png with no auth, remove via X persists after save, Delete removes product and list returns to 26 items, public v-blender page still renders its real hero photo.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_uploads.py",
+    "/app/test_reports/pytest/iter6_uploads.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "routes/uploads.py: On put_object/get_object failure (storage proxy down), the HTTPException from requests.raise_for_status propagates as 500 — consider wrapping in try/except to return a clean 502 so clients get a controlled error.",
+    "routes/uploads.py: db.files record stores a separate random `id` while queries use `storage_path`; the `id` field is effectively unused. Minor cleanup.",
+    "routes/uploads.py: get_object re-fetches from the storage proxy on every public read with no caching headers (no ETag/Cache-Control). For public marketing images this will add latency/cost; consider returning Cache-Control: public, max-age=... and/or an ETag so browsers/CDN can cache.",
+    "ResourceManager.jsx ImageField: `isImg` check for preview excludes legitimate relative paths that don't start with /api/files, /products, or http (e.g. a bare slug). Minor — current admin fields all use one of those prefixes so no user-visible impact.",
+    "ResourceManager.jsx: gallery remove button uses opacity-0 group-hover:opacity-100 — functional but on touch devices (no hover) the remove X is invisible/unreachable. Consider always-visible or focus-visible fallback."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_uploads.py"
+  ],
+  "success_rate": {"backend": "100% (8/8)", "frontend": "100% (all core flows)"},
+  "test_credentials": "panditamit946@gmail.com / AmitS@2025 (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "Created and deleted admin product slug 'test-upload-product' during UI test. 3 PNGs + 1 JPG uploaded to object storage during pytest, plus 3 PNGs via UI (hero + 2 gallery) — db.files records remain (is_deleted=False) but are orphaned; harmless.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Admin upload (/api/admin/uploads) + public serve (/api/files/{path}) are production-ready. 7 orphan db.files records exist from this iteration's test uploads; safe to ignore. Playwright tip: use data-testid 'login-email'/'login-password'/'login-submit' (NOT button[type=submit]) and set_input_files on the hidden <input type=file> (there are exactly 2 on the product editor — index 0 hero, index 1 gallery). Admin uses JWT in localStorage key 'pt_token'.",
+  "rca of the issue": "No bugs found. All playbook assertions (object storage init on startup, APP_NAME=prochem-tapasya scope, 15MB limit, allow-list ext, is_deleted flag, public serving) match the implementation and behave correctly end-to-end."
+}
