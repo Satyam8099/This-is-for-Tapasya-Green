@@ -9,7 +9,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import useLenis from "@/hooks/useLenis";
-import { PRODUCT_DETAILS, IMAGES, CONTACT } from "@/lib/site-data";
+import { PRODUCT_DETAILS, img, CONTACT } from "@/lib/site-data";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import EnquiryForm from "@/components/site/EnquiryForm";
@@ -180,7 +180,7 @@ export default function ProductPage() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 aspect-[4/3] overflow-hidden border border-black/10"
           >
-            <img src={IMAGES[p.hero]} alt={p.name} className="h-full w-full object-cover" />
+            <img src={img(p.hero)} alt={p.name} className="h-full w-full object-cover" />
           </motion.div>
         </div>
       </section>
@@ -306,7 +306,7 @@ export default function ProductPage() {
             className="relative aspect-[16/9] overflow-hidden border border-white/15 group"
           >
             <motion.img
-              src={IMAGES[p.hero]}
+              src={img(p.hero)}
               alt=""
               initial={{ scale: 1.08 }}
               whileInView={{ scale: 1 }}
@@ -538,14 +538,14 @@ export default function ProductPage() {
           <SectionHeader index={13} kicker="Product Gallery" title="From every angle." />
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
             <div className="md:col-span-4 aspect-[16/10] overflow-hidden border border-black/10 clip-frame group">
-              <img src={IMAGES[p.hero]} alt="" className="h-full w-full object-cover grayscale-[25%] group-hover:grayscale-0" />
+              <img src={img(p.hero)} alt="" className="h-full w-full object-cover grayscale-[25%] group-hover:grayscale-0" />
             </div>
             {p.gallery.slice(0, 2).map((g, i) => (
               <div
                 key={`g-${i}`}
                 className="md:col-span-2 aspect-[4/3] md:aspect-auto overflow-hidden border border-black/10 clip-frame group"
               >
-                <img src={IMAGES[g]} alt="" className="h-full w-full object-cover grayscale-[25%] group-hover:grayscale-0" />
+                <img src={img(g)} alt="" className="h-full w-full object-cover grayscale-[25%] group-hover:grayscale-0" />
               </div>
             ))}
             {p.gallery.slice(2, 5).map((g, i) => (
@@ -553,7 +553,7 @@ export default function ProductPage() {
                 key={`g2-${i}`}
                 className="md:col-span-2 aspect-[4/3] overflow-hidden border border-black/10 clip-frame group"
               >
-                <img src={IMAGES[g]} alt="" className="h-full w-full object-cover grayscale-[25%] group-hover:grayscale-0" />
+                <img src={img(g)} alt="" className="h-full w-full object-cover grayscale-[25%] group-hover:grayscale-0" />
               </div>
             ))}
           </div>
@@ -574,9 +574,13 @@ export default function ProductPage() {
               <a
                 key={d.label}
                 data-testid={`download-${i}`}
-                href={`mailto:${CONTACT.email}?subject=${encodeURIComponent(
-                  `${d.label} · ${p.name}`,
-                )}`}
+                href={
+                  d.href ||
+                  `mailto:${CONTACT.email}?subject=${encodeURIComponent(
+                    `${d.label} · ${p.name}`,
+                  )}`
+                }
+                {...(d.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="group flex items-center justify-between gap-4 border border-black/15 px-6 py-5 hover:border-ink transition-colors"
               >
                 <div>
@@ -619,7 +623,7 @@ export default function ProductPage() {
                   >
                     <div className="aspect-[4/3] overflow-hidden clip-frame">
                       <img
-                        src={IMAGES[rp.hero]}
+                        src={img(rp.hero)}
                         alt=""
                         className="h-full w-full object-cover grayscale-[35%] group-hover:grayscale-0"
                       />

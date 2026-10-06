@@ -18,6 +18,9 @@ export const IMAGES = {
 export const CATEGORIES = _CATEGORIES;
 export const PRODUCT_DETAILS = _PRODUCT_DETAILS;
 
+// Resolve an image key ("machinery_1") or a direct path ("/products/x/1.jpg")
+export const img = (key) => IMAGES[key] || key;
+
 export const NAV_LINKS = [
   { label: "About", to: "/about" },
   { label: "Capabilities", to: "/capabilities" },

@@ -1166,6 +1166,42 @@ const RAW = [
   },
 ];
 
+// Real equipment photography installed from customer ZIP (2026-10).
+// Products not listed here keep the stock image keys above.
+const REAL_PHOTOS = {
+  "high-shear-mixer-granulator": 4,
+  "high-shear-mixer-granulator-r2t": 4,
+  "binder-preparation-vessel": 2,
+  "fluid-bed-equipment": 5,
+  "tray-dryer": 5,
+  "roto-cone-vacuum-dryer": 4,
+  "tap-cone-mill": 4,
+  "under-driven-cone-mill": 2,
+  "multi-mill": 3,
+  "sifter-cum-multi-mill": 3,
+  "oscillating-granulator": 5,
+  "vibratory-sifter": 4,
+  "delumper": 2,
+  "v-blender": 5,
+  "conta-blender": 5,
+  "octagonal-blender": 4,
+  "double-cone-blender": 5,
+  "ribbon-blender": 4,
+  "plough-shear-mixer": 4,
+  "elevator": 4,
+};
+
+// Real PDF datasheets shipped in the customer ZIP
+const DATASHEETS = {
+  "high-shear-mixer-granulator": { href: "/products/high-shear-mixer-granulator/datasheet.pdf", size: "2.9 MB" },
+  "high-shear-mixer-granulator-r2t": { href: "/products/high-shear-mixer-granulator-r2t/datasheet.pdf", size: "279 KB" },
+  "binder-preparation-vessel": { href: "/products/binder-preparation-vessel/datasheet.pdf", size: "385 KB" },
+  "oscillating-granulator": { href: "/products/oscillating-granulator/datasheet.pdf", size: "458 KB" },
+};
+
+const realImages = (slug, n) =>
+  Array.from({ length: n }, (_, i) => `/products/${slug}/${i + 1}.jpg`);
+
 // Build PRODUCT_DETAILS map by merging category defaults with per-product data.
 export const PRODUCT_DETAILS = Object.fromEntries(
   RAW.map((p) => {
@@ -1173,14 +1209,21 @@ export const PRODUCT_DETAILS = Object.fromEntries(
     const related = (cat?.products || [])
       .filter((rp) => rp.slug !== p.slug)
       .slice(0, 3);
+    const realCount = REAL_PHOTOS[p.slug] || 0;
+    const real = realCount ? realImages(p.slug, realCount) : null;
+    const ds = DATASHEETS[p.slug];
     return [
       p.slug,
       {
         ...p,
+        hero: real ? real[0] : p.hero,
+        gallery: real ? real.slice(1) : p.gallery,
         categoryName: cat?.name || "",
         howItWorks: HOW_BY_CATEGORY[p.category] || HOW_GRANULATING,
         compliance: COMMON_COMPLIANCE,
-        downloads: COMMON_DOWNLOADS,
+        downloads: ds
+          ? [{ label: "Product Datasheet", type: "PDF", size: ds.size, href: ds.href }, ...COMMON_DOWNLOADS.slice(1)]
+          : COMMON_DOWNLOADS,
         integration: COMMON_INTEGRATION,
         customisation: COMMON_CUSTOMISATION,
         faq: COMMON_FAQ,

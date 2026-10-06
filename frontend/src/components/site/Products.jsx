@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { PRODUCTS, IMAGES } from "@/lib/site-data";
+import { PRODUCTS, img } from "@/lib/site-data";
 
 export default function Products() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function Products() {
             >
               <div className={`clip-frame ${p.feature ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
                 <img
-                  src={IMAGES[p.img]}
+                  src={img(p.img)}
                   alt={p.name}
                   loading="lazy"
                   className="h-full w-full object-cover grayscale-[35%] group-hover:grayscale-0"
