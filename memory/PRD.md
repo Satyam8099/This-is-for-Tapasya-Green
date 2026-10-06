@@ -35,10 +35,18 @@ Awwwards-level marketing site for Prochem Tapasya (industrial/pharma process equ
 - Admin: JWT login, dashboard, full CRUD managers (products incl. category select limited to the 6 chart slugs), settings
 - Tested: iteration_1..3 (general), iteration_4 (catalog replacement) — 100% backend/frontend pass
 
+## Real Product Photos (installed 2026-10-06)
+- User ZIP ("Prochem Tapasya Upscaled images - Website.zip") processed: 78 photos optimized (144MB PNG -> 17MB progressive JPEG q82) at /app/frontend/public/products/<slug>/1.jpg (hero) + gallery
+- 20 products have real photos; 6 keep stock (tipper, power-transfer-system, ibc, pallet-weighing-truck, bin-wash-system, cip-wip-skid)
+- 4 real PDF datasheets wired to Downloads section (hsmg, hsmg-r2t, binder-preparation-vessel, oscillating-granulator) — direct download links, others use mailto
+- Wiring: REAL_PHOTOS/DATASHEETS overlay maps in products.js; img() helper in site-data.js resolves stock keys OR direct /products/* paths; DB + seed.py hero fields synced via /app/backend/sync_real_photos.py
+- Note: HSMG gallery 4.jpg shows a co-mill nameplate — user's own ZIP organization, intentional
+
 ## Backlog / Next
 - P1: Blog/news seed content still references legacy "Saizoner"/"RMG" (editorial) — confirm with user whether to rewrite
 - P1: Real contact details currently placeholders (info@prochemtapasya.com, +91 22 6666 0000)
-- P2: Product images are stock (Unsplash) — user may supply real machinery photos
+- P2: Real photos still needed for the 6 stock products (Tipper, Power Transfer System, IBC, Pallet Weighing Truck, Bin Wash System, CIP/WIP Skid)
+- P2: Admin product form has no file-upload for hero/gallery (free-text key field) — add upload if editors need it
 - P2: If admin edits should ever go live, wire public pages to GET /api/products (user currently declined)
 
 ## Credentials
