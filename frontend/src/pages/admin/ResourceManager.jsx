@@ -60,6 +60,68 @@ function ImageField({ label, value, onChange, testid }) {
   );
 }
 
+/* Single file field (PDF datasheets): link + upload + clear */
+function FileField({ label, value, onChange, testid }) {
+  const [busy, setBusy] = useState(false);
+  const inputRef = useRef(null);
+  const hasFile = typeof value === "string" && value.trim().length > 0;
+
+  const pick = async (e) => {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f) return;
+    setBusy(true);
+    try {
+      onChange(await uploadFile(f));
+    } catch (err) {
+      alert(err.response?.data?.detail || "Upload failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div>
+      <span className="font-mono uppercase text-[0.6rem] tracking-[0.2em] text-ink/50 block mb-1">{label}</span>
+      <div className="flex items-center gap-3 flex-wrap">
+        {hasFile ? (
+          <>
+            <a
+              href={value}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid={`${testid}-link`}
+              className="inline-flex items-center gap-1.5 border border-black/15 px-3 py-1.5 font-mono uppercase text-[0.6rem] tracking-widest text-tapasya-blue hover:border-tapasya-blue truncate max-w-[280px]"
+            >
+              {value.split("/").pop()}
+            </a>
+            <button
+              type="button"
+              onClick={() => onChange("")}
+              data-testid={`${testid}-clear`}
+              className="inline-flex items-center gap-1 border border-black/15 px-2 py-1.5 font-mono uppercase text-[0.6rem] tracking-widest text-ink/60 hover:bg-slate-800 hover:text-white"
+            >
+              <X size={12} /> Clear
+            </button>
+          </>
+        ) : (
+          <span className="font-mono text-[0.6rem] tracking-widest text-ink/40 uppercase">No file attached</span>
+        )}
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => inputRef.current?.click()}
+          data-testid={`${testid}-upload`}
+          className="inline-flex items-center gap-1.5 border border-black/15 px-3 py-1.5 font-mono uppercase text-[0.6rem] tracking-widest text-ink/70 hover:bg-slate-800 hover:text-white disabled:opacity-50"
+        >
+          <Upload size={12} /> {busy ? "Uploading…" : hasFile ? "Replace PDF" : "Upload PDF"}
+        </button>
+        <input ref={inputRef} type="file" accept="application/pdf" className="hidden" onChange={pick} />
+      </div>
+    </div>
+  );
+}
+
 /* Multi image field: thumb grid + multi upload + remove */
 function ImagesField({ label, value, onChange, testid }) {
   const [busy, setBusy] = useState(false);
@@ -204,6 +266,17 @@ export default function ResourceManager({
                   if (f.type === "image") {
                     return (
                       <ImageField
+                        key={f.name}
+                        label={f.label}
+                        value={val}
+                        onChange={(v) => setCurrent({ ...current, [f.name]: v })}
+                        testid={`${testidPrefix}-${f.name}`}
+                      />
+                    );
+                  }
+                  if (f.type === "file") {
+                    return (
+                      <FileField
                         key={f.name}
                         label={f.label}
                         value={val}

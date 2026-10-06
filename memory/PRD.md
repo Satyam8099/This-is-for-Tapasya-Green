@@ -46,7 +46,8 @@ Awwwards-level marketing site for Prochem Tapasya (industrial/pharma process equ
 - Emergent object storage: /app/backend/storage.py (playbook pattern, APP_NAME=prochem-tapasya, EMERGENT_LLM_KEY in backend/.env, init on startup)
 - POST /api/admin/uploads (staff auth; jpg/jpeg/png/webp/pdf; 15MB max; path prochem-tapasya/products/{uuid}.{ext}; db.files record with is_deleted soft-delete)
 - GET /api/files/{path:path} — PUBLIC serving (marketing assets), Cache-Control public at origin (edge proxy overrides to no-store in preview)
-- Admin UI: ResourceManager.jsx ImageField (preview+upload+editable value) & ImagesField (thumb grid, multi-upload, remove); AdminProducts hero→image, gallery→images
+- Admin UI: ResourceManager.jsx ImageField (preview+upload+editable value), ImagesField (thumb grid, multi-upload, remove) & FileField (PDF link + upload/replace + clear); AdminProducts hero→image, gallery→images, datasheet→file
+- Datasheet Uploads (2026-10-06): products have a `datasheet` PDF field in admin; 4 real datasheets pre-linked (hsmg, hsmg-r2t, binder-preparation-vessel, oscillating-granulator)
 - Uploaded URLs (/api/files/<path>) are public — usable anywhere, including public site if API-wired later
 - Tested iteration_6: 8/8 backend pytest + full UI flow pass
 
