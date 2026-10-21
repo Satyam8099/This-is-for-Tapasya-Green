@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = `${process.env.REACT_APP_BACKEND_URL}` || 'https://this-is-for-tapasya-green.onrender.com';
+const baseURL = `${process.env.REACT_APP_BACKEND_URL}/api` || 'https://this-is-for-tapasya-green.onrender.com/api';
 
 const api = axios.create({ baseURL });
 
